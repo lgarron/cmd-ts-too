@@ -24,3 +24,7 @@ publish:
 .PHONY: clean
 clean:
 	rm -rf ./dist
+
+.PHONY: setup
+setup:
+	npm install
