@@ -4,24 +4,24 @@ import {
   ParsingInto,
   ParsingResult,
   ParseContext,
-} from './argparser';
-import { positional } from './positional';
-import { From } from './from';
-import { Runner } from './runner';
-import { Aliased, Named, Descriptive, Versioned } from './helpdoc';
-import chalk from 'chalk';
-import { createCircuitBreaker, handleCircuitBreaker } from './circuitbreaker';
-import * as Result from './Result';
-import didYouMean from 'didyoumean';
+} from "./argparser";
+import { positional } from "./positional";
+import { From } from "./from";
+import { Runner } from "./runner";
+import { Aliased, Named, Descriptive, Versioned } from "./helpdoc";
+import chalk from "chalk";
+import { createCircuitBreaker, handleCircuitBreaker } from "./circuitbreaker";
+import * as Result from "./Result";
+import didYouMean from "didyoumean";
 
 type Output<
-  Commands extends Record<string, ArgParser<any> & Runner<any, any>>
+  Commands extends Record<string, ArgParser<any> & Runner<any, any>>,
 > = {
   [key in keyof Commands]: { command: key; args: ParsingInto<Commands[key]> };
 }[keyof Commands];
 
 type RunnerOutput<
-  Commands extends Record<string, Runner<any, any> & ArgParser<any>>
+  Commands extends Record<string, Runner<any, any> & ArgParser<any>>,
 > = {
   [key in keyof Commands]: {
     command: key;
@@ -36,7 +36,7 @@ export function subcommands<
   Commands extends Record<
     string,
     ArgParser<any> & Runner<any, any> & Partial<Descriptive & Aliased>
-  >
+  >,
 >(config: {
   name: string;
   version?: string;
@@ -49,23 +49,26 @@ export function subcommands<
   const circuitbreaker = createCircuitBreaker(!!config.version);
   const type: From<string, keyof Commands> = {
     async from(str) {
-      const commands = Object.entries(config.cmds)
-        .map(([name, cmd]) => {
-          return {
-            cmdName: name as keyof Commands,
-            names: [name, ...(cmd.aliases ?? [])],
-          };
-        });
-      const cmd = commands
-        .find(x => x.names.includes(str));
+      const commands = Object.entries(config.cmds).map(([name, cmd]) => {
+        return {
+          cmdName: name as keyof Commands,
+          names: [name, ...(cmd.aliases ?? [])],
+        };
+      });
+      const cmd = commands.find((x) => x.names.includes(str));
       if (cmd) {
         return cmd.cmdName;
       }
       let errorMessage = `Not a valid subcommand name`;
 
-      const closeOptions = didYouMean(str, flatMap(commands, x => x.names));
+      const closeOptions = didYouMean(
+        str,
+        flatMap(commands, (x) => x.names),
+      );
       if (closeOptions) {
-        const option = Array.isArray(closeOptions) ? closeOptions[0] : closeOptions;
+        const option = Array.isArray(closeOptions)
+          ? closeOptions[0]
+          : closeOptions;
         errorMessage += `\nDid you mean ${chalk.italic(option)}?`;
       }
 
@@ -74,8 +77,8 @@ export function subcommands<
   };
 
   const subcommand = positional({
-    displayName: 'subcommand',
-    description: 'one of ' + Object.keys(config.cmds).join(', '),
+    displayName: "subcommand",
+    description: "one of " + Object.keys(config.cmds).join(", "),
     type,
   });
 
@@ -87,10 +90,10 @@ export function subcommands<
     // Called without any arguments? We default to subcommand help.
     if (!context.nodes.some((n) => !context.visitedNodes.has(n))) {
       context.nodes.push({
-        type: 'longOption',
+        type: "longOption",
         index: 0,
-        key: 'help',
-        raw: '--help',
+        key: "help",
+        raw: "--help",
       });
     }
   }
@@ -99,7 +102,7 @@ export function subcommands<
     version: config.version,
     description: config.description,
     name: config.name,
-    handler: value => {
+    handler: (value) => {
       const cmd = config.cmds[value.command];
       return cmd.handler(value.args);
     },
@@ -111,39 +114,39 @@ export function subcommands<
     },
     printHelp(context) {
       const lines: string[] = [];
-      const argsSoFar = context.hotPath?.join(' ') ?? 'cli';
+      const argsSoFar = context.hotPath?.join(" ") ?? "cli";
 
-      lines.push(chalk.bold(argsSoFar + chalk.italic(' <subcommand>')));
+      lines.push(chalk.bold(argsSoFar + chalk.italic(" <subcommand>")));
 
       if (config.description) {
-        lines.push(chalk.dim('> ') + config.description);
+        lines.push(chalk.dim("> ") + config.description);
       }
 
-      lines.push('');
-      lines.push(`where ${chalk.italic('<subcommand>')} can be one of:`);
-      lines.push('');
+      lines.push("");
+      lines.push(`where ${chalk.italic("<subcommand>")} can be one of:`);
+      lines.push("");
 
       for (const key of Object.keys(config.cmds)) {
         const cmd = config.cmds[key];
-        let description = cmd.description ?? '';
-        description = description && ' - ' + description + ' ';
+        let description = cmd.description ?? "";
+        description = description && " - " + description + " ";
         if (cmd.aliases?.length) {
-          const aliasTxt = cmd.aliases.length === 1 ? 'alias' : 'aliases';
-          const aliases = cmd.aliases.join(', ');
+          const aliasTxt = cmd.aliases.length === 1 ? "alias" : "aliases";
+          const aliases = cmd.aliases.join(", ");
           description += chalk.dim(`[${aliasTxt}: ${aliases}]`);
         }
-        const row = chalk.dim('- ') + key + description;
+        const row = chalk.dim("- ") + key + description;
         lines.push(row.trim());
       }
 
       const helpCommand = chalk.yellow(`${argsSoFar} <subcommand> --help`);
 
-      lines.push('');
+      lines.push("");
       lines.push(chalk.dim(`For more help, try running \`${helpCommand}\``));
-      return lines.join('\n');
+      return lines.join("\n");
     },
     async parse(
-      context: ParseContext
+      context: ParseContext,
     ): Promise<ParsingResult<Output<Commands>>> {
       normalizeContext(context);
       const parsed = await subcommand.parse(context);

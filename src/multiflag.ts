@@ -3,13 +3,13 @@ import {
   ParsingResult,
   ParseContext,
   ParsingError,
-} from './argparser';
-import { From, OutputOf } from './from';
-import { findOption } from './newparser/findOption';
-import { ProvidesHelp, LongDoc, Descriptive, ShortDoc } from './helpdoc';
-import { boolean } from './flag';
-import { HasType } from './type';
-import * as Result from './Result';
+} from "./argparser";
+import { From, OutputOf } from "./from";
+import { findOption } from "./newparser/findOption";
+import { ProvidesHelp, LongDoc, Descriptive, ShortDoc } from "./helpdoc";
+import { boolean } from "./flag";
+import { HasType } from "./type";
+import * as Result from "./Result";
 
 type MultiFlagConfig<Decoder extends From<boolean[], any>> = HasType<Decoder> &
   LongDoc &
@@ -20,7 +20,7 @@ type MultiFlagConfig<Decoder extends From<boolean[], any>> = HasType<Decoder> &
  * An error will highlight all option occurences.
  */
 export function multiflag<Decoder extends From<boolean[], any>>(
-  config: MultiFlagConfig<Decoder>
+  config: MultiFlagConfig<Decoder>,
 ): ArgParser<OutputOf<Decoder>> & ProvidesHelp {
   return {
     helpTopics() {
@@ -30,10 +30,10 @@ export function multiflag<Decoder extends From<boolean[], any>>(
       }
       return [
         {
-          category: 'flags',
+          category: "flags",
           usage,
           defaults: [],
-          description: config.description ?? 'self explanatory',
+          description: config.description ?? "self explanatory",
         },
       ];
     },
@@ -50,7 +50,7 @@ export function multiflag<Decoder extends From<boolean[], any>>(
       const options = findOption(nodes, {
         longNames: [config.long],
         shortNames: config.short ? [config.short] : [],
-      }).filter(x => !visitedNodes.has(x));
+      }).filter((x) => !visitedNodes.has(x));
 
       for (const option of options) {
         visitedNodes.add(option);
@@ -61,7 +61,7 @@ export function multiflag<Decoder extends From<boolean[], any>>(
 
       for (const option of options) {
         const decoded = await Result.safeAsync(
-          boolean.from(option.value?.node.raw ?? 'true')
+          boolean.from(option.value?.node.raw ?? "true"),
         );
         if (Result.isErr(decoded)) {
           errors.push({ nodes: [option], message: decoded.error.message });
@@ -77,7 +77,7 @@ export function multiflag<Decoder extends From<boolean[], any>>(
       }
 
       const multiDecoded = await Result.safeAsync(
-        config.type.from(optionValues)
+        config.type.from(optionValues),
       );
 
       if (Result.isErr(multiDecoded)) {

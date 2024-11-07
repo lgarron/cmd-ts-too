@@ -3,22 +3,22 @@ import {
   ParsingError,
   ParsingResult,
   ParseContext,
-} from './argparser';
-import { OutputOf } from './from';
-import { findOption } from './newparser/findOption';
+} from "./argparser";
+import { OutputOf } from "./from";
+import { findOption } from "./newparser/findOption";
 import {
   ProvidesHelp,
   Descriptive,
   LongDoc,
   EnvDoc,
   ShortDoc,
-} from './helpdoc';
-import { Type, HasType } from './type';
-import chalk from 'chalk';
-import { Default } from './default';
-import { AllOrNothing } from './utils';
-import * as Result from './Result';
-import { string } from './types';
+} from "./helpdoc";
+import { Type, HasType } from "./type";
+import chalk from "chalk";
+import { Default } from "./default";
+import { AllOrNothing } from "./utils";
+import * as Result from "./Result";
+import { string } from "./types";
 
 type OptionConfig<Decoder extends Type<string, any>> = LongDoc &
   HasType<Decoder> &
@@ -26,12 +26,12 @@ type OptionConfig<Decoder extends Type<string, any>> = LongDoc &
   AllOrNothing<Default<OutputOf<Decoder>>>;
 
 function fullOption<Decoder extends Type<string, any>>(
-  config: OptionConfig<Decoder>
+  config: OptionConfig<Decoder>,
 ): ArgParser<OutputOf<Decoder>> & ProvidesHelp & Partial<Descriptive> {
   return {
     description: config.description ?? config.type.description,
     helpTopics() {
-      const displayName = config.type.displayName ?? 'value';
+      const displayName = config.type.displayName ?? "value";
       let usage = `--${config.long}`;
       if (config.short) {
         usage += `, -${config.short}`;
@@ -43,7 +43,7 @@ function fullOption<Decoder extends Type<string, any>>(
       if (config.env) {
         const env =
           process.env[config.env] === undefined
-            ? ''
+            ? ""
             : `=${chalk.italic(process.env[config.env])}`;
         defaults.push(`env: ${config.env}${env}`);
       }
@@ -57,20 +57,20 @@ function fullOption<Decoder extends Type<string, any>>(
             config.defaultValueIsSerializable ??
             config.type.defaultValueIsSerializable
           ) {
-            defaults.push('default: ' + chalk.italic(defaultValue));
+            defaults.push("default: " + chalk.italic(defaultValue));
           } else {
-            defaults.push('optional');
+            defaults.push("optional");
           }
         } catch (e) {}
       }
 
       return [
         {
-          category: 'options',
+          category: "options",
           usage,
           defaults,
           description:
-            config.description ?? config.type.description ?? 'self explanatory',
+            config.description ?? config.type.description ?? "self explanatory",
         },
       ];
     },
@@ -94,7 +94,7 @@ function fullOption<Decoder extends Type<string, any>>(
       if (options.length > 1) {
         const error: ParsingError = {
           message:
-            'Too many times provided. Expected 1, got: ' + options.length,
+            "Too many times provided. Expected 1, got: " + options.length,
           nodes: options,
         };
         return Result.err({ errors: [error] });
@@ -104,7 +104,7 @@ function fullOption<Decoder extends Type<string, any>>(
 
       const option = options[0];
       let rawValue: string;
-      let envPrefix = '';
+      let envPrefix = "";
       const defaultValueFn = config.defaultValue ?? config.type.defaultValue;
 
       if (option?.value) {
@@ -112,7 +112,7 @@ function fullOption<Decoder extends Type<string, any>>(
       } else if (valueFromEnv !== undefined) {
         rawValue = valueFromEnv;
         envPrefix = `env[${chalk.italic(config.env)}]: `;
-      } else if (!option && typeof defaultValueFn === 'function') {
+      } else if (!option && typeof defaultValueFn === "function") {
         try {
           return Result.ok(defaultValueFn());
         } catch (e: any) {
@@ -128,7 +128,7 @@ function fullOption<Decoder extends Type<string, any>>(
         }
       } else {
         const raw =
-          option?.type === 'shortOption'
+          option?.type === "shortOption"
             ? `-${option?.key}`
             : `--${option?.key ?? config.long}`;
         return Result.err({
@@ -170,17 +170,17 @@ export function option<Decoder extends Type<string, any>>(
   config: LongDoc &
     HasType<Decoder> &
     Partial<Descriptive & EnvDoc & ShortDoc> &
-    AllOrNothing<Default<OutputOf<Decoder>>>
+    AllOrNothing<Default<OutputOf<Decoder>>>,
 ): ArgParser<OutputOf<Decoder>> & ProvidesHelp & Partial<Descriptive>;
 export function option(
   config: LongDoc &
     Partial<HasType<never> & Descriptive & EnvDoc & ShortDoc> &
-    AllOrNothing<Default<OutputOf<StringType>>>
+    AllOrNothing<Default<OutputOf<StringType>>>,
 ): ArgParser<OutputOf<StringType>> & ProvidesHelp & Partial<Descriptive>;
 export function option(
   config: LongDoc &
     Partial<HasType<any>> &
-    Partial<Descriptive & EnvDoc & ShortDoc>
+    Partial<Descriptive & EnvDoc & ShortDoc>,
 ): ArgParser<OutputOf<any>> & ProvidesHelp & Partial<Descriptive> {
   return fullOption({
     type: string,

@@ -4,15 +4,15 @@ import {
   ParseContext,
   ParsingError,
   Register,
-} from './argparser';
-import { OutputOf } from './from';
-import { findOption } from './newparser/findOption';
-import { ProvidesHelp, LongDoc, ShortDoc, Descriptive } from './helpdoc';
-import { Type, HasType } from './type';
-import { AstNode } from './newparser/parser';
-import * as Result from './Result';
-import { Default } from './default';
-import chalk from 'chalk';
+} from "./argparser";
+import { OutputOf } from "./from";
+import { findOption } from "./newparser/findOption";
+import { ProvidesHelp, LongDoc, ShortDoc, Descriptive } from "./helpdoc";
+import { Type, HasType } from "./type";
+import { AstNode } from "./newparser/parser";
+import * as Result from "./Result";
+import { Default } from "./default";
+import chalk from "chalk";
 
 type MultiOptionConfig<Decoder extends Type<string[], any>> = HasType<Decoder> &
   LongDoc &
@@ -23,11 +23,11 @@ type MultiOptionConfig<Decoder extends Type<string[], any>> = HasType<Decoder> &
  * An error will highlight all option occurences.
  */
 export function multioption<Decoder extends Type<string[], any>>(
-  config: MultiOptionConfig<Decoder>
+  config: MultiOptionConfig<Decoder>,
 ): ArgParser<OutputOf<Decoder>> & ProvidesHelp & Register {
   return {
     helpTopics() {
-      const displayName = config.type.displayName ?? 'value';
+      const displayName = config.type.displayName ?? "value";
       let usage = `--${config.long} <${displayName}>`;
       if (config.short) {
         usage += `, -${config.short}=<${displayName}>`;
@@ -44,19 +44,19 @@ export function multioption<Decoder extends Type<string[], any>>(
             config.defaultValueIsSerializable ??
             config.type.defaultValueIsSerializable
           ) {
-            defaults.push('default: ' + chalk.italic(defaultValue));
+            defaults.push("default: " + chalk.italic(defaultValue));
           } else {
-            defaults.push('[...optional]');
+            defaults.push("[...optional]");
           }
         } catch (e) {}
       }
 
       return [
         {
-          category: 'options',
+          category: "options",
           usage,
           defaults,
-          description: config.description ?? 'self explanatory',
+          description: config.description ?? "self explanatory",
         },
       ];
     },
@@ -77,7 +77,7 @@ export function multioption<Decoder extends Type<string[], any>>(
 
       const defaultValueFn = config.defaultValue ?? config.type.defaultValue;
 
-      if (options.length === 0 && typeof defaultValueFn === 'function') {
+      if (options.length === 0 && typeof defaultValueFn === "function") {
         try {
           return Result.ok(defaultValueFn());
         } catch (e: any) {
@@ -122,7 +122,7 @@ export function multioption<Decoder extends Type<string[], any>>(
       }
 
       const multiDecoded = await Result.safeAsync(
-        config.type.from(optionValues)
+        config.type.from(optionValues),
       );
 
       if (Result.isErr(multiDecoded)) {

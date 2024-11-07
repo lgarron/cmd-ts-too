@@ -1,18 +1,18 @@
-import { ArgParser, ParsingResult, ParseContext, Register } from './argparser';
-import { findOption } from './newparser/findOption';
+import { ArgParser, ParsingResult, ParseContext, Register } from "./argparser";
+import { findOption } from "./newparser/findOption";
 import {
   ProvidesHelp,
   Descriptive,
   ShortDoc,
   LongDoc,
   EnvDoc,
-} from './helpdoc';
-import { Type, extendType, OutputOf, HasType } from './type';
-import chalk from 'chalk';
-import { Default } from './default';
-import { AllOrNothing } from './utils';
-import * as Result from './Result';
-import { boolean as booleanIdentity } from './types';
+} from "./helpdoc";
+import { Type, extendType, OutputOf, HasType } from "./type";
+import chalk from "chalk";
+import { Default } from "./default";
+import { AllOrNothing } from "./utils";
+import * as Result from "./Result";
+import { boolean as booleanIdentity } from "./types";
 
 type FlagConfig<Decoder extends Type<boolean, any>> = LongDoc &
   HasType<Decoder> &
@@ -25,18 +25,18 @@ type FlagConfig<Decoder extends Type<boolean, any>> = LongDoc &
  */
 export const boolean: Type<string, boolean> = {
   async from(str) {
-    if (str === 'true') return true;
-    if (str === 'false') return false;
+    if (str === "true") return true;
+    if (str === "false") return false;
     throw new Error(
-      `expected value to be either "true" or "false". got: "${str}"`
+      `expected value to be either "true" or "false". got: "${str}"`,
     );
   },
-  displayName: 'true/false',
+  displayName: "true/false",
   defaultValue: () => false,
 };
 
 export function fullFlag<Decoder extends Type<boolean, any>>(
-  config: FlagConfig<Decoder>
+  config: FlagConfig<Decoder>,
 ): ArgParser<OutputOf<Decoder>> &
   ProvidesHelp &
   Register &
@@ -55,7 +55,7 @@ export function fullFlag<Decoder extends Type<boolean, any>>(
       if (config.env) {
         const env =
           process.env[config.env] === undefined
-            ? ''
+            ? ""
             : `=${chalk.italic(process.env[config.env])}`;
         defaults.push(`env: ${config.env}${env}`);
       }
@@ -68,17 +68,17 @@ export function fullFlag<Decoder extends Type<boolean, any>>(
 
         if (defaultValueFn && defaultValueIsSerializable) {
           const defaultValue = defaultValueFn();
-          defaults.push('default: ' + chalk.italic(defaultValue));
+          defaults.push("default: " + chalk.italic(defaultValue));
         }
       } catch (e) {}
 
       return [
         {
-          category: 'flags',
+          category: "flags",
           usage,
           defaults,
           description:
-            config.description ?? config.type.description ?? 'self explanatory',
+            config.description ?? config.type.description ?? "self explanatory",
         },
       ];
     },
@@ -103,7 +103,7 @@ export function fullFlag<Decoder extends Type<boolean, any>>(
           errors: [
             {
               nodes: options,
-              message: 'Expected 1 occurence, got ' + options.length,
+              message: "Expected 1 occurence, got " + options.length,
             },
           ],
         });
@@ -111,14 +111,14 @@ export function fullFlag<Decoder extends Type<boolean, any>>(
 
       const valueFromEnv = config.env ? process.env[config.env] : undefined;
       let rawValue: string;
-      let envPrefix = '';
+      let envPrefix = "";
 
       if (options.length === 0 && valueFromEnv !== undefined) {
         rawValue = valueFromEnv;
         envPrefix = `env[${chalk.italic(config.env)}]: `;
       } else if (
         options.length === 0 &&
-        typeof config.type.defaultValue === 'function'
+        typeof config.type.defaultValue === "function"
       ) {
         try {
           return Result.ok(config.type.defaultValue());
@@ -129,7 +129,7 @@ export function fullFlag<Decoder extends Type<boolean, any>>(
           });
         }
       } else if (options.length === 1) {
-        rawValue = options[0].value?.node.raw ?? 'true';
+        rawValue = options[0].value?.node.raw ?? "true";
       } else {
         return Result.err({
           errors: [
@@ -168,7 +168,7 @@ type BooleanType = Type<boolean, boolean>;
  * @param config flag configurations
  */
 export function flag<Decoder extends Type<boolean, any>>(
-  config: FlagConfig<Decoder>
+  config: FlagConfig<Decoder>,
 ): ArgParser<OutputOf<Decoder>> &
   ProvidesHelp &
   Register &
@@ -176,7 +176,7 @@ export function flag<Decoder extends Type<boolean, any>>(
 export function flag(
   config: LongDoc &
     Partial<HasType<never> & ShortDoc & Descriptive & EnvDoc> &
-    AllOrNothing<Default<OutputOf<BooleanType>>>
+    AllOrNothing<Default<OutputOf<BooleanType>>>,
 ): ArgParser<OutputOf<BooleanType>> &
   ProvidesHelp &
   Register &
@@ -184,7 +184,7 @@ export function flag(
 export function flag(
   config: LongDoc &
     Partial<HasType<any> & ShortDoc & Descriptive & EnvDoc> &
-    AllOrNothing<Default<OutputOf<any>>>
+    AllOrNothing<Default<OutputOf<any>>>,
 ): ArgParser<OutputOf<any>> & ProvidesHelp & Register & Partial<Descriptive> {
   return fullFlag({
     type: booleanIdentity,

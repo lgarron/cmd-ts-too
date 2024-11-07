@@ -1,8 +1,8 @@
-import { From, OutputOf, InputOf, FromFn } from './from';
-import { Descriptive, Displayed } from './helpdoc';
-import { Default } from './default';
+import { From, OutputOf, InputOf, FromFn } from "./from";
+import { Descriptive, Displayed } from "./helpdoc";
+import { Default } from "./default";
 
-export { identity, OutputOf, InputOf } from './from';
+export { identity, OutputOf, InputOf } from "./from";
 
 export type Type<From_, To> = From<From_, To> &
   Partial<Descriptive & Displayed & Default<To>>;
@@ -11,9 +11,9 @@ export type Type<From_, To> = From<From_, To> &
  * Get the type definitions or an empty object from a type or a decoding function
  */
 export function typeDef<T extends From<any, any> | FromFn<any, any>>(
-  from: T
-): T extends FromFn<any, any> ? {} : Omit<T, 'from'> {
-  if (typeof from === 'function') {
+  from: T,
+): T extends FromFn<any, any> ? {} : Omit<T, "from"> {
+  if (typeof from === "function") {
     return {} as any;
   } else {
     return from as any;
@@ -24,7 +24,7 @@ export function typeDef<T extends From<any, any> | FromFn<any, any>>(
  * Get the decoding function from a type or a function
  */
 export function fromFn<A, B>(t: FromFn<A, B> | From<A, B>): FromFn<A, B> {
-  if (typeof t === 'function') {
+  if (typeof t === "function") {
     return t;
   } else {
     return t.from;
@@ -45,12 +45,12 @@ export function extendType<
   BaseType extends Type<any, any>,
   NextType extends
     | Type<OutputOf<BaseType>, any>
-    | FromFn<OutputOf<BaseType>, any>
+    | FromFn<OutputOf<BaseType>, any>,
 >(
   base: BaseType,
-  nextTypeOrDecodingFunction: NextType
-): Omit<BaseType, 'from' | 'defaultValue'> &
-  (NextType extends FromFn<any, any> ? unknown : Omit<NextType, 'from'>) &
+  nextTypeOrDecodingFunction: NextType,
+): Omit<BaseType, "from" | "defaultValue"> &
+  (NextType extends FromFn<any, any> ? unknown : Omit<NextType, "from">) &
   From<InputOf<BaseType>, OutputOf<NextType>> {
   const {
     defaultValue: _defaultValue,

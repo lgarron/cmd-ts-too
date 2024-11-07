@@ -1,20 +1,20 @@
-import { enumerate } from '../utils';
+import { enumerate } from "../utils";
 
 export type Token =
-  | { index: number; type: 'argumentDivider'; raw: ' ' }
+  | { index: number; type: "argumentDivider"; raw: " " }
   | {
       index: number;
-      type: 'shortPrefix';
-      raw: '-';
+      type: "shortPrefix";
+      raw: "-";
     }
   | {
       index: number;
-      type: 'longPrefix';
-      raw: '--';
+      type: "longPrefix";
+      raw: "--";
     }
   | {
       index: number;
-      type: 'char';
+      type: "char";
       raw: string;
     };
 
@@ -35,18 +35,18 @@ export function tokenize(strings: string[]): Token[] {
   for (const [stringIndex, string] of enumerate(strings)) {
     const chars = [...string];
     for (let i = 0; i < chars.length; i++) {
-      if (chars[i] === '-' && chars[i + 1] === '-') {
-        push({ type: 'longPrefix', raw: '--', index: overallIndex });
+      if (chars[i] === "-" && chars[i + 1] === "-") {
+        push({ type: "longPrefix", raw: "--", index: overallIndex });
         i++;
-      } else if (chars[i] === '-') {
-        push({ type: 'shortPrefix', raw: '-', index: overallIndex });
+      } else if (chars[i] === "-") {
+        push({ type: "shortPrefix", raw: "-", index: overallIndex });
       } else {
-        push({ type: 'char', raw: chars[i], index: overallIndex });
+        push({ type: "char", raw: chars[i], index: overallIndex });
       }
     }
 
     if (stringIndex + 1 !== strings.length) {
-      push({ type: 'argumentDivider', raw: ' ', index: overallIndex });
+      push({ type: "argumentDivider", raw: " ", index: overallIndex });
     }
   }
 

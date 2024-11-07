@@ -8,7 +8,7 @@
  * @packageDocumentation
  */
 
-import chalk from 'chalk';
+import chalk from "chalk";
 
 /**
  * An effect to exit the program with a message
@@ -29,8 +29,8 @@ export class Exit {
     public readonly config: {
       exitCode: number;
       message: string;
-      into: 'stdout' | 'stderr';
-    }
+      into: "stdout" | "stderr";
+    },
   ) {}
 
   run(): never {
@@ -41,12 +41,14 @@ export class Exit {
 
   dryRun(): string {
     const { into, message, exitCode } = this.config;
-    const coloredExit = chalk.dim(`process exited with status ${exitCode} (${into})`);
+    const coloredExit = chalk.dim(
+      `process exited with status ${exitCode} (${into})`,
+    );
     return `${message}\n\n${coloredExit}`;
   }
 
   private output() {
-    if (this.config.into === 'stderr') {
+    if (this.config.into === "stderr") {
       return console.error;
     } else {
       return console.log;

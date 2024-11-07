@@ -1,4 +1,4 @@
-import type { RegisterOptions } from '../src/argparser';
+import type { RegisterOptions } from "../src/argparser";
 
 export function createRegisterOptions(): RegisterOptions {
   return {

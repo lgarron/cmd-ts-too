@@ -2,7 +2,7 @@
 # https://github.com/lgarron/Makefile-scripts
 
 # Note: the first command becomes the default `make` target.
-NPM_COMMANDS = build lint now-build start prepublishOnly test ts-node changeset:version changeset:publish format
+NPM_COMMANDS = build lint now-build start prepublishOnly test ts-node format
 
 .PHONY: $(NPM_COMMANDS)
 $(NPM_COMMANDS):

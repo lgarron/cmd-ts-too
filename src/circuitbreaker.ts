@@ -1,41 +1,41 @@
-import { ArgParser, Register, ParseContext } from './argparser';
-import { boolean } from './types';
-import { flag } from './flag';
-import { ProvidesHelp, PrintHelp, Versioned } from './helpdoc';
-import * as Result from './Result';
-import { Exit } from './effects';
+import { ArgParser, Register, ParseContext } from "./argparser";
+import { boolean } from "./types";
+import { flag } from "./flag";
+import { ProvidesHelp, PrintHelp, Versioned } from "./helpdoc";
+import * as Result from "./Result";
+import { Exit } from "./effects";
 
-type CircuitBreaker = 'help' | 'version';
+type CircuitBreaker = "help" | "version";
 
 export const helpFlag = flag({
-  long: 'help',
-  short: 'h',
+  long: "help",
+  short: "h",
   type: boolean,
-  description: 'show help',
+  description: "show help",
 });
 
 export const versionFlag = flag({
-  long: 'version',
-  short: 'v',
+  long: "version",
+  short: "v",
   type: boolean,
-  description: 'print the version',
+  description: "print the version",
 });
 
 export function handleCircuitBreaker(
   context: ParseContext,
   value: PrintHelp & Partial<Versioned>,
-  breaker: Result.Result<any, CircuitBreaker>
+  breaker: Result.Result<any, CircuitBreaker>,
 ): void {
   if (Result.isErr(breaker)) {
     return;
   }
 
-  if (breaker.value === 'help') {
+  if (breaker.value === "help") {
     const message = value.printHelp(context);
-    throw new Exit({ exitCode: 0, message, into: 'stdout' });
-  } else if (breaker.value === 'version') {
-    const message = value.version || '0.0.0';
-    throw new Exit({ exitCode: 0, message, into: 'stdout' });
+    throw new Exit({ exitCode: 0, message, into: "stdout" });
+  } else if (breaker.value === "version") {
+    const message = value.version || "0.0.0";
+    throw new Exit({ exitCode: 0, message, into: "stdout" });
   }
 }
 
@@ -48,7 +48,7 @@ export function handleCircuitBreaker(
  * anywhere in your argument list, you'll see the version and the help for the closest command
  */
 export function createCircuitBreaker(
-  withVersion: boolean
+  withVersion: boolean,
 ): ArgParser<CircuitBreaker> & ProvidesHelp & Register {
   return {
     register(opts) {
@@ -78,15 +78,15 @@ export function createCircuitBreaker(
       }
 
       if (help.value) {
-        return Result.ok('help');
+        return Result.ok("help");
       } else if (version?.value) {
-        return Result.ok('version');
+        return Result.ok("version");
       } else {
         return Result.err({
           errors: [
             {
               nodes: [],
-              message: 'Neither help nor version',
+              message: "Neither help nor version",
             },
           ],
         });

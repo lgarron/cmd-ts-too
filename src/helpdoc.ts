@@ -1,4 +1,4 @@
-import { ParseContext } from './argparser';
+import { ParseContext } from "./argparser";
 
 export type Descriptive = {
   /** A long description that will be shown on help */

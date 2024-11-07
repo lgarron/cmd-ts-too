@@ -1,13 +1,13 @@
-import { ArgParser, ParsingResult, ParseContext } from './argparser';
-import { OutputOf } from './from';
-import { PositionalArgument } from './newparser/parser';
-import { ProvidesHelp, Descriptive, Displayed } from './helpdoc';
-import { Type, HasType } from './type';
-import * as Result from './Result';
-import { string } from './types';
-import { AllOrNothing } from './utils';
-import { Default } from './default';
-import chalk from 'chalk';
+import { ArgParser, ParsingResult, ParseContext } from "./argparser";
+import { OutputOf } from "./from";
+import { PositionalArgument } from "./newparser/parser";
+import { ProvidesHelp, Descriptive, Displayed } from "./helpdoc";
+import { Type, HasType } from "./type";
+import * as Result from "./Result";
+import { string } from "./types";
+import { AllOrNothing } from "./utils";
+import { Default } from "./default";
+import chalk from "chalk";
 
 type PositionalConfig<Decoder extends Type<string, any>> = HasType<Decoder> &
   Partial<Displayed & Descriptive> &
@@ -20,9 +20,9 @@ type PositionalParser<Decoder extends Type<string, any>> = ArgParser<
   Partial<Descriptive>;
 
 function fullPositional<Decoder extends Type<string, any>>(
-  config: PositionalConfig<Decoder>
+  config: PositionalConfig<Decoder>,
 ): PositionalParser<Decoder> {
-  const displayName = config.displayName ?? config.type.displayName ?? 'arg';
+  const displayName = config.displayName ?? config.type.displayName ?? "arg";
 
   return {
     description: config.description ?? config.type.description,
@@ -37,9 +37,9 @@ function fullPositional<Decoder extends Type<string, any>>(
             config.defaultValueIsSerializable ??
             config.type.defaultValueIsSerializable
           ) {
-            defaults.push('default: ' + chalk.italic(defaultValue));
+            defaults.push("default: " + chalk.italic(defaultValue));
           } else {
-            defaults.push('optional');
+            defaults.push("optional");
           }
         } catch (e) {}
       }
@@ -49,10 +49,10 @@ function fullPositional<Decoder extends Type<string, any>>(
 
       return [
         {
-          category: 'arguments',
+          category: "arguments",
           usage,
           description:
-            config.description ?? config.type.description ?? 'self explanatory',
+            config.description ?? config.type.description ?? "self explanatory",
           defaults,
         },
       ];
@@ -64,7 +64,7 @@ function fullPositional<Decoder extends Type<string, any>>(
     }: ParseContext): Promise<ParsingResult<OutputOf<Decoder>>> {
       const positionals = nodes.filter(
         (node): node is PositionalArgument =>
-          node.type === 'positionalArgument' && !visitedNodes.has(node)
+          node.type === "positionalArgument" && !visitedNodes.has(node),
       );
 
       const defaultValueFn = config.defaultValue ?? config.type.defaultValue;
@@ -116,13 +116,13 @@ type StringType = Type<string, string>;
  * @param config positional argument config
  */
 export function positional<Decoder extends Type<string, any>>(
-  config: HasType<Decoder> & Partial<Displayed & Descriptive>
+  config: HasType<Decoder> & Partial<Displayed & Descriptive>,
 ): PositionalParser<Decoder>;
 export function positional(
-  config?: Partial<HasType<never> & Displayed & Descriptive>
+  config?: Partial<HasType<never> & Displayed & Descriptive>,
 ): PositionalParser<StringType>;
 export function positional(
-  config?: Partial<HasType<any>> & Partial<Displayed & Descriptive>
+  config?: Partial<HasType<any>> & Partial<Displayed & Descriptive>,
 ): PositionalParser<any> {
   return fullPositional({
     type: string,

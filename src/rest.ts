@@ -1,19 +1,19 @@
-import type { ArgParser } from './argparser';
-import type { Descriptive, Displayed, ProvidesHelp } from './helpdoc';
-import * as Result from './Result';
+import type { ArgParser } from "./argparser";
+import type { Descriptive, Displayed, ProvidesHelp } from "./helpdoc";
+import * as Result from "./Result";
 
 export function rest(
-  config?: Partial<Displayed & Descriptive>
+  config?: Partial<Displayed & Descriptive>,
 ): ArgParser<string[]> & ProvidesHelp {
   return {
     helpTopics() {
-      const displayName = config?.displayName ?? 'arg';
+      const displayName = config?.displayName ?? "arg";
       return [
         {
           usage: `[...${displayName}]`,
-          category: 'arguments',
+          category: "arguments",
           defaults: [],
-          description: config?.description ?? 'catches the rest of the values',
+          description: config?.description ?? "catches the rest of the values",
         },
       ];
     },

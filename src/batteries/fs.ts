@@ -1,14 +1,14 @@
-import { extendType, string } from '..';
-import fs from 'fs';
-import path from 'path';
+import { extendType, string } from "..";
+import fs from "fs";
+import path from "path";
 
 /**
  * Resolves an existing path. Produces an error when path does not exist.
  * When provided a relative path, extends it using the current working directory.
  */
 export const ExistingPath = extendType(string, {
-  displayName: 'path',
-  description: 'An existing path',
+  displayName: "path",
+  description: "An existing path",
   async from(str) {
     const resolved = path.resolve(str);
 
@@ -34,8 +34,8 @@ export const Directory = extendType(ExistingPath, {
 
     return path.dirname(resolved);
   },
-  displayName: 'dir',
-  description: 'A path to a directory or a file within a directory',
+  displayName: "dir",
+  description: "A path to a directory or a file within a directory",
 });
 
 /**
@@ -49,8 +49,8 @@ export const File = extendType(ExistingPath, {
       return resolved;
     }
 
-    throw new Error('Provided path is not a file');
+    throw new Error("Provided path is not a file");
   },
-  displayName: 'file',
-  description: 'A file in the file system',
+  displayName: "file",
+  description: "A file in the file system",
 });

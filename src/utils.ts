@@ -1,4 +1,4 @@
-import stripAnsi from 'strip-ansi';
+import stripAnsi from "strip-ansi";
 
 /**
  * @ignore
@@ -6,12 +6,12 @@ import stripAnsi from 'strip-ansi';
 export function padNoAnsi(
   str: string,
   length: number,
-  place: 'end' | 'start'
+  place: "end" | "start",
 ): string {
   const noAnsiStr = stripAnsi(str);
   if (length < noAnsiStr.length) return str;
-  const pad = Array(length - noAnsiStr.length + 1).join(' ');
-  if (place === 'end') {
+  const pad = Array(length - noAnsiStr.length + 1).join(" ");
+  if (place === "end") {
     return str + pad;
   } else {
     return pad + str;
@@ -25,7 +25,7 @@ export function padNoAnsi(
  */
 export function groupBy<A, B extends string>(
   objs: A[],
-  f: (a: A) => B
+  f: (a: A) => B,
 ): Record<B, A[]> {
   const result = {} as Record<B, A[]>;
   for (const obj of objs) {
@@ -42,7 +42,7 @@ export function groupBy<A, B extends string>(
  * @ignore
  */
 export function entries<Obj extends Record<string, any>>(
-  obj: Obj
+  obj: Obj,
 ): { [key in keyof Obj]: [key, Obj[key]] }[keyof Obj][] {
   return Object.entries(obj);
 }

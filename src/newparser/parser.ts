@@ -1,8 +1,8 @@
-import { Token } from './tokenizer';
-import createDebugger from 'debug';
-import type { RegisterOptions } from '../argparser';
+import { Token } from "./tokenizer";
+import createDebugger from "debug";
+import type { RegisterOptions } from "../argparser";
 
-const debug = createDebugger('cmd-ts:parser');
+const debug = createDebugger("cmd-ts:parser");
 
 export type AstNode =
   | Value
@@ -18,33 +18,33 @@ type BaseAstNode<Type extends string> = {
   raw: string;
 };
 
-export interface LongOption extends BaseAstNode<'longOption'> {
+export interface LongOption extends BaseAstNode<"longOption"> {
   key: string;
   value?: OptionValue;
 }
 
-interface Delimiter extends BaseAstNode<'delimiter'> {}
+interface Delimiter extends BaseAstNode<"delimiter"> {}
 
-interface Value extends BaseAstNode<'value'> {}
+interface Value extends BaseAstNode<"value"> {}
 
-interface OptionValue extends BaseAstNode<'optionValue'> {
+interface OptionValue extends BaseAstNode<"optionValue"> {
   delimiter: Delimiter;
   node: Value;
 }
 
-export interface ShortOptions extends BaseAstNode<'shortOptions'> {
+export interface ShortOptions extends BaseAstNode<"shortOptions"> {
   options: ShortOption[];
 }
 
-export interface ShortOption extends BaseAstNode<'shortOption'> {
+export interface ShortOption extends BaseAstNode<"shortOption"> {
   key: string;
   value?: OptionValue;
 }
 
-export interface PositionalArgument extends BaseAstNode<'positionalArgument'> {}
+export interface PositionalArgument extends BaseAstNode<"positionalArgument"> {}
 
-interface ForcePositional extends BaseAstNode<'forcePositional'> {
-  type: 'forcePositional';
+interface ForcePositional extends BaseAstNode<"forcePositional"> {
+  type: "forcePositional";
 }
 
 /**
@@ -80,58 +80,58 @@ export function parse(tokens: Token[], forceFlag: RegisterOptions): AstNode[] {
     const currentToken = getToken();
     if (!currentToken) break;
 
-    if (currentToken.type === 'argumentDivider') {
+    if (currentToken.type === "argumentDivider") {
       continue;
     }
 
     if (forcedPositional) {
       let str = currentToken.raw;
       let nextToken = getToken();
-      while (nextToken && nextToken?.type !== 'argumentDivider') {
+      while (nextToken && nextToken?.type !== "argumentDivider") {
         str += nextToken.raw;
         nextToken = getToken();
       }
       nodes.push({
-        type: 'positionalArgument',
+        type: "positionalArgument",
         index: currentToken.index,
         raw: str,
       });
       continue;
     }
 
-    if (currentToken.type === 'char') {
+    if (currentToken.type === "char") {
       let str = currentToken.raw;
       let nextToken = getToken();
-      while (nextToken && nextToken?.type !== 'argumentDivider') {
+      while (nextToken && nextToken?.type !== "argumentDivider") {
         str += nextToken.raw;
         nextToken = getToken();
       }
       nodes.push({
-        type: 'positionalArgument',
+        type: "positionalArgument",
         index: currentToken.index,
         raw: str,
       });
       continue;
     }
 
-    if (currentToken.type === 'longPrefix') {
+    if (currentToken.type === "longPrefix") {
       let nextToken = getToken();
 
-      if (nextToken?.type === 'argumentDivider' || !nextToken) {
+      if (nextToken?.type === "argumentDivider" || !nextToken) {
         nodes.push({
-          type: 'forcePositional',
+          type: "forcePositional",
           index: currentToken.index,
-          raw: '--',
+          raw: "--",
         });
         forcedPositional = true;
         continue;
       }
 
-      let key = '';
+      let key = "";
       while (
         nextToken &&
-        nextToken?.raw !== '=' &&
-        nextToken?.type !== 'argumentDivider'
+        nextToken?.raw !== "=" &&
+        nextToken?.type !== "argumentDivider"
       ) {
         key += nextToken.raw;
         nextToken = getToken();
@@ -152,7 +152,7 @@ export function parse(tokens: Token[], forceFlag: RegisterOptions): AstNode[] {
       }
 
       nodes.push({
-        type: 'longOption',
+        type: "longOption",
         key,
         index: currentToken.index,
         raw,
@@ -161,23 +161,23 @@ export function parse(tokens: Token[], forceFlag: RegisterOptions): AstNode[] {
       continue;
     }
 
-    if (currentToken.type === 'shortPrefix') {
+    if (currentToken.type === "shortPrefix") {
       let keys: Token[] = [];
       let nextToken = getToken();
 
-      if (nextToken?.type === 'argumentDivider' || !nextToken) {
+      if (nextToken?.type === "argumentDivider" || !nextToken) {
         nodes.push({
-          type: 'positionalArgument',
+          type: "positionalArgument",
           index: currentToken.index,
-          raw: '-',
+          raw: "-",
         });
         continue;
       }
 
       while (
         nextToken &&
-        nextToken?.type !== 'argumentDivider' &&
-        nextToken?.raw !== '='
+        nextToken?.type !== "argumentDivider" &&
+        nextToken?.raw !== "="
       ) {
         keys.push(nextToken);
         nextToken = getToken();
@@ -197,7 +197,7 @@ export function parse(tokens: Token[], forceFlag: RegisterOptions): AstNode[] {
 
       for (const key of keys) {
         options.push({
-          type: 'shortOption',
+          type: "shortOption",
           index: key.index,
           raw: key.raw,
           key: key.raw,
@@ -211,20 +211,20 @@ export function parse(tokens: Token[], forceFlag: RegisterOptions): AstNode[] {
       }
 
       options.push({
-        type: 'shortOption',
+        type: "shortOption",
         index: lastKey.index,
         raw: lastKeyRaw,
         value: parsedValue,
         key: lastKey.raw,
       });
 
-      let optionsRaw = `-${keys.map((x) => x.raw).join('')}${lastKey.raw}`;
+      let optionsRaw = `-${keys.map((x) => x.raw).join("")}${lastKey.raw}`;
       if (parsedValue) {
         optionsRaw += parsedValue.raw;
       }
 
       const shortOptions: ShortOptions = {
-        type: 'shortOptions',
+        type: "shortOptions",
         index: currentToken.index,
         raw: optionsRaw,
         options,
@@ -258,13 +258,13 @@ function parseOptionValue(opts: {
   const shouldReadKeyAsOption = forceOption.has(key);
   const shouldReadKeyAsFlag =
     !shouldReadKeyAsOption &&
-    (forceFlag.has(key) || opts.peekToken()?.type !== 'char');
+    (forceFlag.has(key) || opts.peekToken()?.type !== "char");
 
-  if (!delimiterToken || (delimiterToken.raw !== '=' && shouldReadKeyAsFlag)) {
+  if (!delimiterToken || (delimiterToken.raw !== "=" && shouldReadKeyAsFlag)) {
     return;
   }
 
-  const delimiter = delimiterToken.raw === '=' ? '=' : ' ';
+  const delimiter = delimiterToken.raw === "=" ? "=" : " ";
   const delimiterIndex = delimiterToken.index;
 
   let nextToken = getToken();
@@ -272,18 +272,18 @@ function parseOptionValue(opts: {
     return;
   }
 
-  let value = '';
+  let value = "";
   const valueIndex = nextToken.index;
-  while (nextToken && nextToken?.type !== 'argumentDivider') {
+  while (nextToken && nextToken?.type !== "argumentDivider") {
     value += nextToken.raw;
     nextToken = getToken();
   }
 
   return {
-    type: 'optionValue',
+    type: "optionValue",
     index: delimiterToken.index,
-    delimiter: { type: 'delimiter', raw: delimiter, index: delimiterIndex },
-    node: { type: 'value', raw: value, index: valueIndex },
+    delimiter: { type: "delimiter", raw: delimiter, index: delimiterIndex },
+    node: { type: "value", raw: value, index: valueIndex },
     raw: `${delimiter}${value}`,
   };
 }

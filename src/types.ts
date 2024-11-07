@@ -1,4 +1,4 @@
-import { Type, identity, InputOf, OutputOf } from './type';
+import { Type, identity, InputOf, OutputOf } from "./type";
 
 /**
  * A number type to be used with `option`
@@ -10,13 +10,13 @@ export const number: Type<string, number> = {
     const decoded = parseFloat(str);
 
     if (Number.isNaN(decoded)) {
-      throw new Error('Not a number');
+      throw new Error("Not a number");
     } else {
       return decoded;
     }
   },
-  displayName: 'number',
-  description: 'a number',
+  displayName: "number",
+  description: "a number",
 };
 
 /**
@@ -24,8 +24,8 @@ export const number: Type<string, number> = {
  */
 export const string: Type<string, string> = {
   ...identity(),
-  description: 'a string',
-  displayName: 'str',
+  description: "a string",
+  displayName: "str",
 };
 
 /**
@@ -33,8 +33,8 @@ export const string: Type<string, string> = {
  */
 export const boolean: Type<boolean, boolean> = {
   ...identity(),
-  description: 'a boolean',
-  displayName: 'true/false',
+  description: "a boolean",
+  displayName: "true/false",
   defaultValue() {
     return false;
   },
@@ -44,7 +44,7 @@ export const boolean: Type<boolean, boolean> = {
  * Makes any type optional, by defaulting to `undefined`.
  */
 export function optional<T extends Type<any, any>>(
-  t: T
+  t: T,
 ): Type<InputOf<T>, OutputOf<T> | undefined> {
   return {
     ...t,
@@ -59,7 +59,7 @@ export function optional<T extends Type<any, any>>(
  */
 
 export function array<T extends Type<any, any>>(
-  t: T
+  t: T,
 ): Type<InputOf<T>[], OutputOf<T>[]> {
   return {
     ...t,

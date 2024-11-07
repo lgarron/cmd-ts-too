@@ -1,57 +1,57 @@
-import { it, describe, expect } from 'vitest';
-import { padNoAnsi, AllOrNothing } from '../src/utils';
-import stripAnsi from 'strip-ansi';
-import chalk from 'chalk';
+import { it, describe, expect } from "vitest";
+import { padNoAnsi, AllOrNothing } from "../src/utils";
+import stripAnsi from "strip-ansi";
+import chalk from "chalk";
 
-describe('padNoAnsi', () => {
-  it('pads start', () => {
-    const expected = 'hello'.padStart(10, ' ');
+describe("padNoAnsi", () => {
+  it("pads start", () => {
+    const expected = "hello".padStart(10, " ");
     const actual = padNoAnsi(
       chalk`{red h}{cyan e}{blue l}{green l}{red o}`,
       10,
-      'start'
+      "start",
     );
     expect(stripAnsi(actual)).toEqual(expected);
   });
-  it('pads end', () => {
-    const expected = 'hello'.padEnd(10, ' ');
+  it("pads end", () => {
+    const expected = "hello".padEnd(10, " ");
     const actual = padNoAnsi(
       chalk`{red h}{cyan e}{blue l}{green l}{red o}`,
       10,
-      'end'
+      "end",
     );
     expect(stripAnsi(actual)).toEqual(expected);
   });
-  it('returns the string if it is shorter than the padding', () => {
+  it("returns the string if it is shorter than the padding", () => {
     const str = chalk`{red h}{cyan e}{blue l}{green l}{red o}`;
-    const actual = padNoAnsi(str, 2, 'end');
+    const actual = padNoAnsi(str, 2, "end");
     expect(actual).toEqual(str);
   });
 });
 
-it('passes type tests', () => {
+it("passes type tests", () => {
   function identity<T>(t: T): T {
     return t;
   }
 
-  expect(identity<TypeTests.test>('true')).toEqual('true');
+  expect(identity<TypeTests.test>("true")).toEqual("true");
 });
 
 namespace TypeTests {
-  type Extends<A, B> = B extends A ? 'true' : 'false';
-  type AssertTrue<A extends 'true'> = Extends<'true', A>;
-  type AssertFalse<A extends 'false'> = Extends<'false', A>;
-  type AllTrue<A extends 'true'[]> = Extends<'true'[], A>;
+  type Extends<A, B> = B extends A ? "true" : "false";
+  type AssertTrue<A extends "true"> = Extends<"true", A>;
+  type AssertFalse<A extends "false"> = Extends<"false", A>;
+  type AllTrue<A extends "true"[]> = Extends<"true"[], A>;
 
   namespace AllOrNothingTests {
     type Person = { name: string; age: number };
 
     type accepts_all_elements = AssertTrue<
-      Extends<AllOrNothing<Person>, { name: 'Joe'; age: 100 }>
+      Extends<AllOrNothing<Person>, { name: "Joe"; age: 100 }>
     >;
 
     type does_not_accept_partial = AssertFalse<
-      Extends<AllOrNothing<Person>, { name: 'joe' }>
+      Extends<AllOrNothing<Person>, { name: "joe" }>
     >;
 
     type accepts_nothing = AssertTrue<Extends<AllOrNothing<Person>, {}>>;

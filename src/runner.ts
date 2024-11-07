@@ -1,10 +1,10 @@
-import { PrintHelp, Versioned } from './helpdoc';
-import { ArgParser, ParseContext, ParsingResult, Register } from './argparser';
-import { tokenize } from './newparser/tokenizer';
-import { AstNode, parse as doParse } from './newparser/parser';
-import { errorBox } from './errorBox';
-import { err, ok, Result, isErr } from './Result';
-import { Exit } from './effects';
+import { PrintHelp, Versioned } from "./helpdoc";
+import { ArgParser, ParseContext, ParsingResult, Register } from "./argparser";
+import { tokenize } from "./newparser/tokenizer";
+import { AstNode, parse as doParse } from "./newparser/parser";
+import { errorBox } from "./errorBox";
+import { err, ok, Result, isErr } from "./Result";
+import { Exit } from "./effects";
 
 export type Handling<Values, Result> = { handler: (values: Values) => Result };
 
@@ -22,7 +22,7 @@ export type Into<R extends Runner<any, any>> = R extends Runner<any, infer X>
 
 export async function run<R extends Runner<any, any>>(
   ap: R,
-  strings: string[]
+  strings: string[],
 ): Promise<Into<R>> {
   const result = await runSafely(ap, strings);
   if (isErr(result)) {
@@ -37,10 +37,10 @@ export async function run<R extends Runner<any, any>>(
  */
 export async function runSafely<R extends Runner<any, any>>(
   ap: R,
-  strings: string[]
+  strings: string[],
 ): Promise<Result<Exit, Into<R>>> {
   const hotPath: string[] = [];
-  const nodes = parseCommon(ap, strings)
+  const nodes = parseCommon(ap, strings);
 
   try {
     const result = await ap.run({ nodes, visitedNodes: new Set(), hotPath });
@@ -49,7 +49,7 @@ export async function runSafely<R extends Runner<any, any>>(
       throw new Exit({
         message: errorBox(nodes, result.error.errors, hotPath),
         exitCode: 1,
-        into: 'stderr',
+        into: "stderr",
       });
     } else {
       return ok(result.value);
@@ -67,7 +67,7 @@ export async function runSafely<R extends Runner<any, any>>(
  */
 export async function dryRun<R extends Runner<any, any>>(
   ap: R,
-  strings: string[]
+  strings: string[],
 ): Promise<Result<string, Into<R>>> {
   const result = await runSafely(ap, strings);
   if (isErr(result)) {
@@ -80,18 +80,18 @@ export async function dryRun<R extends Runner<any, any>>(
 /**
  * Parse the command as if to run it, but only return the parse result and don't run the command.
  */
- export function parse<R extends Runner<any, any>>(
+export function parse<R extends Runner<any, any>>(
   ap: R,
-  strings: string[]
+  strings: string[],
 ): Promise<ParsingResult<any>> {
   const hotPath: string[] = [];
   const nodes = parseCommon(ap, strings);
-  return ap.parse({ nodes, visitedNodes: new Set(), hotPath })
+  return ap.parse({ nodes, visitedNodes: new Set(), hotPath });
 }
 
 function parseCommon<R extends Runner<any, any>>(
   ap: R,
-  strings: string[]
+  strings: string[],
 ): AstNode[] {
   const longFlagKeys = new Set<string>();
   const shortFlagKeys = new Set<string>();

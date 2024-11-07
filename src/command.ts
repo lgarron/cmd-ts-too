@@ -1,12 +1,12 @@
-import chalk from 'chalk';
+import chalk from "chalk";
 import {
   ParsingInto,
   ArgParser,
   ParsingError,
   ParsingResult,
   ParseContext,
-} from './argparser';
-import { AstNode } from './newparser/parser';
+} from "./argparser";
+import { AstNode } from "./newparser/parser";
 import {
   PrintHelp,
   ProvidesHelp,
@@ -14,18 +14,18 @@ import {
   Named,
   Descriptive,
   Aliased,
-} from './helpdoc';
-import { padNoAnsi, entries, groupBy, flatMap } from './utils';
-import { Runner } from './runner';
-import { createCircuitBreaker, handleCircuitBreaker } from './circuitbreaker';
-import * as Result from './Result';
+} from "./helpdoc";
+import { padNoAnsi, entries, groupBy, flatMap } from "./utils";
+import { Runner } from "./runner";
+import { createCircuitBreaker, handleCircuitBreaker } from "./circuitbreaker";
+import * as Result from "./Result";
 
 type ArgTypes = Record<string, ArgParser<any> & Partial<ProvidesHelp>>;
 type HandlerFunc<Args extends ArgTypes> = (args: Output<Args>) => any;
 
 type CommandConfig<
   Arguments extends ArgTypes,
-  Handler extends HandlerFunc<Arguments>
+  Handler extends HandlerFunc<Arguments>,
 > = {
   args: Arguments;
   version?: string;
@@ -47,9 +47,9 @@ type Output<Args extends ArgTypes> = {
  */
 export function command<
   Arguments extends ArgTypes,
-  Handler extends HandlerFunc<Arguments>
+  Handler extends HandlerFunc<Arguments>,
 >(
-  config: CommandConfig<Arguments, Handler>
+  config: CommandConfig<Arguments, Handler>,
 ): ArgParser<Output<Arguments>> &
   PrintHelp &
   ProvidesHelp &
@@ -68,12 +68,12 @@ export function command<
     helpTopics() {
       return flatMap(
         Object.values(config.args).concat([circuitbreaker]),
-        (x) => x.helpTopics?.() ?? []
+        (x) => x.helpTopics?.() ?? [],
       );
     },
     printHelp(context) {
       const lines: string[] = [];
-      let name = context.hotPath?.join(' ') ?? '';
+      let name = context.hotPath?.join(" ") ?? "";
       if (!name) {
         name = config.name;
       }
@@ -81,27 +81,27 @@ export function command<
       name = chalk.bold(name);
 
       if (config.version) {
-        name += ' ' + chalk.dim(config.version);
+        name += " " + chalk.dim(config.version);
       }
 
       lines.push(name);
 
       if (config.description) {
-        lines.push(chalk.dim('> ') + config.description);
+        lines.push(chalk.dim("> ") + config.description);
       }
 
       const usageBreakdown = groupBy(this.helpTopics(), (x) => x.category);
 
       for (const [category, helpTopics] of entries(usageBreakdown)) {
-        lines.push('');
-        lines.push(category.toUpperCase() + ':');
+        lines.push("");
+        lines.push(category.toUpperCase() + ":");
         const widestUsage = helpTopics.reduce((len, curr) => {
           return Math.max(len, curr.usage.length);
         }, 0);
         for (const helpTopic of helpTopics) {
-          let line = '';
-          line += '  ' + padNoAnsi(helpTopic.usage, widestUsage, 'end');
-          line += ' - ';
+          let line = "";
+          line += "  " + padNoAnsi(helpTopic.usage, widestUsage, "end");
+          line += " - ";
           line += helpTopic.description;
           for (const defaultValue of helpTopic.defaults) {
             line += chalk.dim(` [${defaultValue}]`);
@@ -110,7 +110,7 @@ export function command<
         }
       }
 
-      return lines.join('\n');
+      return lines.join("\n");
     },
     register(opts) {
       for (const [, arg] of argEntries) {
@@ -118,7 +118,7 @@ export function command<
       }
     },
     async parse(
-      context: ParseContext
+      context: ParseContext,
     ): Promise<ParsingResult<Output<Arguments>>> {
       if (context.hotPath?.length === 0) {
         context.hotPath.push(config.name);
@@ -142,11 +142,11 @@ export function command<
           continue;
         }
 
-        if (node.type === 'forcePositional') {
+        if (node.type === "forcePositional") {
           // A `forcePositional` node can't really be visited since it has no meaning
           // other than forcing a positional argument in the parsing phase
           continue;
-        } else if (node.type === 'shortOptions') {
+        } else if (node.type === "shortOptions") {
           for (const option of node.options) {
             if (context.visitedNodes.has(option)) {
               continue;
@@ -160,7 +160,7 @@ export function command<
 
       if (unknownArguments.length > 0) {
         errors.push({
-          message: 'Unknown arguments',
+          message: "Unknown arguments",
           nodes: unknownArguments,
         });
       }

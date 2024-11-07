@@ -1,10 +1,10 @@
-import { test, expect } from 'vitest';
-import { tokenize } from '../../src/newparser/tokenizer';
-import { AstNode, parse } from '../../src/newparser/parser';
-import { createRegisterOptions } from '../createRegisterOptions';
+import { test, expect } from "vitest";
+import { tokenize } from "../../src/newparser/tokenizer";
+import { AstNode, parse } from "../../src/newparser/parser";
+import { createRegisterOptions } from "../createRegisterOptions";
 
-test('dash in the middle of a word', () => {
-  const tokens = tokenize(['hello', 'world', 'you-know', 'my', 'friend']);
+test("dash in the middle of a word", () => {
+  const tokens = tokenize(["hello", "world", "you-know", "my", "friend"]);
   const tree = parse(tokens, createRegisterOptions());
   expect(tree).toMatchInlineSnapshot(`
     [
@@ -38,15 +38,15 @@ test('dash in the middle of a word', () => {
 });
 
 test(`parses forcePositional if it is the last token`, () => {
-  const argv = `scripts/ts-node src/example/app.ts cat /tmp/a --`.split(' ');
+  const argv = `scripts/ts-node src/example/app.ts cat /tmp/a --`.split(" ");
   const tokens = tokenize(argv);
   const tree = parse(tokens, createRegisterOptions());
-  expect(tree.map((x) => x.type)).toContain<AstNode['type']>('forcePositional');
+  expect(tree.map((x) => x.type)).toContain<AstNode["type"]>("forcePositional");
 });
 
-test('welp', () => {
+test("welp", () => {
   const argv = `scripts/ts-node src/example/app.ts cat /tmp/a --help`.split(
-    ' '
+    " ",
   );
   const tokens = tokenize(argv);
   const tree = parse(tokens, createRegisterOptions());
