@@ -15,8 +15,8 @@
     "build": "tsc && tsc --project ./tsconfig.esm.json",
     "lint": "eslint src/**/*.ts test/**/*.ts example/**/*.ts ./.eslintrc.js",
     "now-build": "mdbook build --dest-dir=public",
-    "start": "yarn build --watch",
-    "prepublishOnly": "rm -rf dist && yarn build && yarn test",
+    "start": "npx yarn build --watch",
+    "prepublishOnly": "rm -rf dist && npx yarn build && npx yarn test",
     "test": "vitest",
     "ts-node": "./scripts/ts-node",
     "changeset:version": "changeset version && pnpm install --no-frozen-lockfile",
@@ -24,7 +24,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn lint"
+      "pre-commit": "npx yarn lint"
     }
   },
   "sideEffects": false,
@@ -67,6 +67,7 @@
     "tempy": "3.0.0",
     "typedoc": "0.23.8",
     "typescript": "4.7.4",
-    "vitest": "0.18.1"
+    "vitest": "0.18.1",
+    "yarn": "^1.22.22"
   }
 }
