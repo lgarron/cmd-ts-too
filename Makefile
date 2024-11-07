@@ -20,3 +20,7 @@ update-Makefile:
 .PHONY: publish
 publish:
 	npm publish
+
+.PHONY: clean
+clean:
+	rm -rf ./dist
