@@ -1,11 +1,11 @@
-import { binary, command, run, number, option } from '../src';
+import { binary, command, number, option, run } from "../src";
 
 export function createCmd() {
   const cmd = command({
-    name: 'test',
+    name: "test",
     args: {
       number: option({
-        long: 'number',
+        long: "number",
         type: number,
       }),
     },

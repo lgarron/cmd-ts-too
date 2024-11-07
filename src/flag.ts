@@ -1,18 +1,23 @@
-import { ArgParser, ParsingResult, ParseContext, Register } from "./argparser";
-import { findOption } from "./newparser/findOption";
-import {
-  ProvidesHelp,
-  Descriptive,
-  ShortDoc,
-  LongDoc,
-  EnvDoc,
-} from "./helpdoc";
-import { Type, extendType, OutputOf, HasType } from "./type";
 import chalk from "chalk";
-import { Default } from "./default";
-import { AllOrNothing } from "./utils";
 import * as Result from "./Result";
+import type {
+  ArgParser,
+  ParseContext,
+  ParsingResult,
+  Register,
+} from "./argparser";
+import type { Default } from "./default";
+import type {
+  Descriptive,
+  EnvDoc,
+  LongDoc,
+  ProvidesHelp,
+  ShortDoc,
+} from "./helpdoc";
+import { findOption } from "./newparser/findOption";
+import { type HasType, type OutputOf, type Type, extendType } from "./type";
 import { boolean as booleanIdentity } from "./types";
+import type { AllOrNothing } from "./utils";
 
 type FlagConfig<Decoder extends Type<boolean, any>> = LongDoc &
   HasType<Decoder> &
@@ -68,7 +73,7 @@ export function fullFlag<Decoder extends Type<boolean, any>>(
 
         if (defaultValueFn && defaultValueIsSerializable) {
           const defaultValue = defaultValueFn();
-          defaults.push("default: " + chalk.italic(defaultValue));
+          defaults.push(`default: ${chalk.italic(defaultValue)}`);
         }
       } catch (e) {}
 
@@ -96,14 +101,16 @@ export function fullFlag<Decoder extends Type<boolean, any>>(
         longNames: [config.long],
         shortNames: config.short ? [config.short] : [],
       }).filter((x) => !visitedNodes.has(x));
-      options.forEach((opt) => visitedNodes.add(opt));
+      for (const opt of options) {
+        visitedNodes.add(opt);
+      }
 
       if (options.length > 1) {
         return Result.err({
           errors: [
             {
               nodes: options,
-              message: "Expected 1 occurence, got " + options.length,
+              message: `Expected 1 occurence, got ${options.length}`,
             },
           ],
         });

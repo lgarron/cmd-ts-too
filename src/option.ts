@@ -1,24 +1,24 @@
-import {
+import chalk from "chalk";
+import * as Result from "./Result";
+import type {
   ArgParser,
+  ParseContext,
   ParsingError,
   ParsingResult,
-  ParseContext,
 } from "./argparser";
-import { OutputOf } from "./from";
-import { findOption } from "./newparser/findOption";
-import {
-  ProvidesHelp,
+import type { Default } from "./default";
+import type { OutputOf } from "./from";
+import type {
   Descriptive,
-  LongDoc,
   EnvDoc,
+  LongDoc,
+  ProvidesHelp,
   ShortDoc,
 } from "./helpdoc";
-import { Type, HasType } from "./type";
-import chalk from "chalk";
-import { Default } from "./default";
-import { AllOrNothing } from "./utils";
-import * as Result from "./Result";
+import { findOption } from "./newparser/findOption";
+import type { HasType, Type } from "./type";
 import { string } from "./types";
+import type { AllOrNothing } from "./utils";
 
 type OptionConfig<Decoder extends Type<string, any>> = LongDoc &
   HasType<Decoder> &
@@ -57,7 +57,7 @@ function fullOption<Decoder extends Type<string, any>>(
             config.defaultValueIsSerializable ??
             config.type.defaultValueIsSerializable
           ) {
-            defaults.push("default: " + chalk.italic(defaultValue));
+            defaults.push(`default: ${chalk.italic(defaultValue)}`);
           } else {
             defaults.push("optional");
           }
@@ -89,12 +89,13 @@ function fullOption<Decoder extends Type<string, any>>(
         shortNames: config.short ? [config.short] : [],
       }).filter((x) => !visitedNodes.has(x));
 
-      options.forEach((opt) => visitedNodes.add(opt));
+      for (const opt of options) {
+        visitedNodes.add(opt);
+      }
 
       if (options.length > 1) {
         const error: ParsingError = {
-          message:
-            "Too many times provided. Expected 1, got: " + options.length,
+          message: `Too many times provided. Expected 1, got: ${options.length}`,
           nodes: options,
         };
         return Result.err({ errors: [error] });

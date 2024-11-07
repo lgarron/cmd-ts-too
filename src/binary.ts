@@ -1,12 +1,13 @@
-import { Runner } from "./runner";
-import { ParseContext } from "./argparser";
-import { Named } from "./helpdoc";
+import type { ParseContext } from "./argparser";
+import type { Named } from "./helpdoc";
+import type { Runner } from "./runner";
 
 /**
  * A small helper to easily use `process.argv` without dropping context
  *
  * @param cmd a command line parser
  */
+
 export function binary<Command extends Runner<any, any> & Named>(
   cmd: Command,
 ): Command {

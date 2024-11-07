@@ -19,7 +19,7 @@
     "prepublishOnly": "rm -rf dist && npx yarn build && npx yarn test",
     "test": "echo \"Skipping tests.\" # TODO: vitest",
     "ts-node": "./scripts/ts-node",
-    "format": "npx @biomejs/biome format --write ./scripts ./src ./test"
+    "format": "npx @biomejs/biome format --write ./example ./scripts ./src ./test"
   },
   "husky": {
     "hooks": {
@@ -34,6 +34,7 @@
     "trailingComma": "es5"
   },
   "dependencies": {
+    "@types/node": "^22.9.0",
     "chalk": "^4.0.0",
     "debug": "^4.3.4",
     "didyoumean": "^1.2.2",

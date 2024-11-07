@@ -1,9 +1,9 @@
-import { ArgParser, Register, ParseContext } from "./argparser";
-import { boolean } from "./types";
-import { flag } from "./flag";
-import { ProvidesHelp, PrintHelp, Versioned } from "./helpdoc";
 import * as Result from "./Result";
+import type { ArgParser, ParseContext, Register } from "./argparser";
 import { Exit } from "./effects";
+import { flag } from "./flag";
+import type { PrintHelp, ProvidesHelp, Versioned } from "./helpdoc";
+import { boolean } from "./types";
 
 type CircuitBreaker = "help" | "version";
 
@@ -33,7 +33,8 @@ export function handleCircuitBreaker(
   if (breaker.value === "help") {
     const message = value.printHelp(context);
     throw new Exit({ exitCode: 0, message, into: "stdout" });
-  } else if (breaker.value === "version") {
+  }
+  if (breaker.value === "version") {
     const message = value.version || "0.0.0";
     throw new Exit({ exitCode: 0, message, into: "stdout" });
   }
@@ -79,18 +80,18 @@ export function createCircuitBreaker(
 
       if (help.value) {
         return Result.ok("help");
-      } else if (version?.value) {
-        return Result.ok("version");
-      } else {
-        return Result.err({
-          errors: [
-            {
-              nodes: [],
-              message: "Neither help nor version",
-            },
-          ],
-        });
       }
+      if (version?.value) {
+        return Result.ok("version");
+      }
+      return Result.err({
+        errors: [
+          {
+            nodes: [],
+            message: "Neither help nor version",
+          },
+        ],
+      });
     },
   };
 }

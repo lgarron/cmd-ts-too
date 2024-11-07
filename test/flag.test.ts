@@ -1,13 +1,13 @@
-import { test, expect } from "vitest";
-import { flag } from "../src/flag";
-import { tokenize } from "../src/newparser/tokenizer";
-import { parse } from "../src/newparser/parser";
-import { boolean } from "../src/types";
+import { expect, test } from "vitest";
 import * as Result from "../src/Result";
+import { flag } from "../src/flag";
+import { parse } from "../src/newparser/parser";
+import { tokenize } from "../src/newparser/tokenizer";
+import { boolean } from "../src/types";
 import { createRegisterOptions } from "./createRegisterOptions";
 
 test("fails on incompatible value", async () => {
-  const argv = `--hello=world`;
+  const argv = "--hello=world";
   const tokens = tokenize(argv.split(" "));
   const argparser = flag({
     type: boolean,
@@ -37,7 +37,7 @@ test("fails on incompatible value", async () => {
 });
 
 test("defaults to false", async () => {
-  const argv = ``;
+  const argv = "";
   const tokens = tokenize(argv.split(" "));
   const argparser = flag({
     type: boolean,
@@ -57,7 +57,7 @@ test("defaults to false", async () => {
 });
 
 test("allows short arguments", async () => {
-  const argv = `-abc`;
+  const argv = "-abc";
   const tokens = tokenize(argv.split(" "));
   const argparser = flag({
     type: boolean,

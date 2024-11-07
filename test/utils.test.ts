@@ -1,7 +1,7 @@
-import { it, describe, expect } from "vitest";
-import { padNoAnsi, AllOrNothing } from "../src/utils";
-import stripAnsi from "strip-ansi";
 import chalk from "chalk";
+import stripAnsi from "strip-ansi";
+import { describe, expect, it } from "vitest";
+import { type AllOrNothing, padNoAnsi } from "../src/utils";
 
 describe("padNoAnsi", () => {
   it("pads start", () => {
@@ -54,12 +54,15 @@ namespace TypeTests {
       Extends<AllOrNothing<Person>, { name: "joe" }>
     >;
 
+    // biome-ignore lint/complexity/noBannedTypes: nopez
     type accepts_nothing = AssertTrue<Extends<AllOrNothing<Person>, {}>>;
 
+    // biome-ignore lint/suspicious/noExportsInTest: nopez
     export type test = AssertTrue<
       AllTrue<[accepts_all_elements, does_not_accept_partial, accepts_nothing]>
     >;
   }
 
+  // biome-ignore lint/suspicious/noExportsInTest: nopez
   export type test = AllTrue<[AllOrNothingTests.test]>;
 }

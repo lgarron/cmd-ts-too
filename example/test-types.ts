@@ -1,15 +1,15 @@
 /* istanbul ignore file */
 
-import { Stream } from 'stream';
-import { stat, pathExists, createReadStream } from 'fs-extra';
-import fetch from 'node-fetch';
-import URL from 'url';
-import { Type, extendType, number } from '../src';
+import type { Stream } from "node:stream";
+import URL from "node:url";
+import { createReadStream, pathExists, stat } from "fs-extra";
+import fetch from "node-fetch";
+import { type Type, extendType, number } from "../src";
 
 export const Integer: Type<string, number> = extendType(number, {
   async from(n) {
     if (Math.round(n) !== n) {
-      throw new Error('This is a floating-point number');
+      throw new Error("This is a floating-point number");
     }
     return n;
   },
@@ -20,23 +20,23 @@ function stdin() {
 }
 
 export const ReadStream: Type<string, Stream> = {
-  description: 'A file path or a URL to make a GET request to',
-  displayName: 'file',
+  description: "A file path or a URL to make a GET request to",
+  displayName: "file",
   async from(obj) {
     const parsedUrl = URL.parse(obj);
 
-    if (parsedUrl.protocol?.startsWith('http')) {
+    if (parsedUrl.protocol?.startsWith("http")) {
       const response = await fetch(obj);
       const statusGroup = Math.floor(response.status / 100);
       if (statusGroup !== 2) {
         throw new Error(
-          `Got status ${response.statusText} ${response.status} reading URL`
+          `Got status ${response.statusText} ${response.status} reading URL`,
         );
       }
       return response.body;
     }
 
-    if (obj === '-') {
+    if (obj === "-") {
       return stdin();
     }
 
@@ -46,7 +46,7 @@ export const ReadStream: Type<string, Stream> = {
 
     const fileStat = await stat(obj);
     if (!fileStat.isFile()) {
-      throw new Error(`Path is not a file.`);
+      throw new Error("Path is not a file.");
     }
 
     return createReadStream(obj);
@@ -55,15 +55,16 @@ export const ReadStream: Type<string, Stream> = {
 
 export function readStreamToString(s: Stream): Promise<string> {
   return new Promise((resolve, reject) => {
-    let str = '';
-    s.on('data', (x) => (str += x.toString()));
-    s.on('error', (e) => reject(e));
-    s.on('end', () => resolve(str));
+    let str = "";
+    // biome-ignore lint/suspicious/noAssignInExpressions: DRY pattern
+    s.on("data", (x) => (str += x.toString()));
+    s.on("error", (e) => reject(e));
+    s.on("end", () => resolve(str));
   });
 }
 
 export const CommaSeparatedString: Type<string, string[]> = {
-  description: 'comma seperated string',
+  description: "comma seperated string",
   async from(s) {
     return s.split(/, ?/);
   },

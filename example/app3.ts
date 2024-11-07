@@ -1,18 +1,18 @@
 import {
-  subcommands,
   command,
-  option,
-  string,
-  run,
-  positional,
   number,
+  option,
   optional,
-} from '../src';
+  positional,
+  run,
+  string,
+  subcommands,
+} from "../src";
 
 const sub1 = command({
-  name: 'sub1',
+  name: "sub1",
   args: {
-    name: option({ type: string, long: 'name' }),
+    name: option({ type: string, long: "name" }),
   },
   handler: ({ name }) => {
     console.log({ name });
@@ -20,13 +20,13 @@ const sub1 = command({
 });
 
 const sub2 = command({
-  name: 'sub2',
+  name: "sub2",
   args: {
     age: positional({ type: optional(number) }),
     name: positional({
       type: {
         ...string,
-        defaultValue: () => 'anonymous',
+        defaultValue: () => "anonymous",
         defaultValueIsSerializable: true,
       },
     }),
@@ -37,7 +37,7 @@ const sub2 = command({
 });
 
 const nested = subcommands({
-  name: 'subcmds',
+  name: "subcmds",
   cmds: {
     sub1,
     sub2,

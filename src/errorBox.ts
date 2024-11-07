@@ -1,8 +1,8 @@
-import { ParsingError } from "./argparser";
 import chalk from "chalk";
-import { AstNode } from "./newparser/parser";
-import { padNoAnsi, enumerate } from "./utils";
 import stripAnsi from "strip-ansi";
+import type { ParsingError } from "./argparser";
+import type { AstNode } from "./newparser/parser";
+import { enumerate, padNoAnsi } from "./utils";
 
 type HighlightResult = { colorized: string; errorIndex: number };
 
@@ -27,32 +27,34 @@ function highlight(
 
   if (error.nodes.length === 0) return;
 
-  nodes.forEach((node) => {
+  for (const node of nodes) {
     if (error.nodes.includes(node)) {
       foundError();
-      return strings.push(chalk.red(node.raw));
-    } else {
-      if (node.type === "shortOptions") {
-        let failed = false;
-        let s = "";
-        for (const option of node.options) {
-          if (error.nodes.includes(option)) {
-            s += chalk.red(option.raw);
-            failed = true;
-          } else {
-            s += chalk.dim(option.raw);
-          }
-        }
-        const prefix = failed ? chalk.red(`-`) : chalk.dim("-");
-        if (failed) {
-          foundError();
-        }
-        return strings.push(prefix + s);
-      }
-
-      return strings.push(chalk.dim(node.raw));
+      strings.push(chalk.red(node.raw));
+      return; // TODO: check that this type fix didn't break program semantics.
     }
-  });
+    if (node.type === "shortOptions") {
+      let failed = false;
+      let s = "";
+      for (const option of node.options) {
+        if (error.nodes.includes(option)) {
+          s += chalk.red(option.raw);
+          failed = true;
+        } else {
+          s += chalk.dim(option.raw);
+        }
+      }
+      const prefix = failed ? chalk.red("-") : chalk.dim("-");
+      if (failed) {
+        foundError();
+      }
+      strings.push(prefix + s);
+      return; // TODO: check that this type fix didn't break program semantics.
+    }
+
+    strings.push(chalk.dim(node.raw));
+    return; // TODO: check that this type fix didn't break program semantics.
+  }
 
   return { colorized: strings.join(" "), errorIndex: errorIndex ?? 0 };
 }
@@ -67,9 +69,10 @@ export function errorBox(
   errors: ParsingError[],
   breadcrumbs: string[],
 ): string {
-  let withHighlight: { message: string; highlighted?: HighlightResult }[] = [];
+  const withHighlight: { message: string; highlighted?: HighlightResult }[] =
+    [];
 
-  let errorMessages: string[] = [];
+  const errorMessages: string[] = [];
 
   for (const error of errors) {
     const highlighted = highlight(nodes, error);
@@ -80,14 +83,11 @@ export function errorBox(
   const maxNumberWidth = String(withHighlight.length).length;
 
   errorMessages.push(
-    chalk.red.bold("error: ") +
-      "found " +
-      chalk.yellow(withHighlight.length) +
-      " error" +
-      (withHighlight.length > 1 ? "s" : ""),
+    `${chalk.red.bold("error: ")}found ${chalk.yellow(withHighlight.length)} error${withHighlight.length > 1 ? "s" : ""}`,
   );
   errorMessages.push("");
 
+  // biome-ignore lint/complexity/noForEach: TODO
   withHighlight
     .filter((x) => x.highlighted)
     .forEach((x) => {
@@ -117,6 +117,7 @@ export function errorBox(
     }
   }
 
+  // biome-ignore lint/complexity/noForEach: TODO
   withNoHighlight.forEach(({ message }) => {
     const num = chalk.red.bold(
       `${padNoAnsi(number.toString(), maxNumberWidth, "start")}.`,
@@ -125,11 +126,11 @@ export function errorBox(
     number++;
   });
 
-  const helpCmd = chalk.yellow(breadcrumbs.join(" ") + " --help");
+  const helpCmd = chalk.yellow(`${breadcrumbs.join(" ")} --help`);
 
   errorMessages.push("");
   errorMessages.push(
-    chalk.red.bold("hint: ") + `for more information, try '${helpCmd}'`,
+    `${chalk.red.bold("hint: ")}for more information, try '${helpCmd}'`,
   );
 
   return errorMessages.join("\n");

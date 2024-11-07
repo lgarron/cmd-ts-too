@@ -1,6 +1,6 @@
+import fs from "node:fs";
+import path from "node:path";
 import { extendType, string } from "..";
-import fs from "fs";
-import path from "path";
 
 /**
  * Resolves an existing path. Produces an error when path does not exist.

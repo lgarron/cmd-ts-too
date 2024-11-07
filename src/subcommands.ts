@@ -1,18 +1,18 @@
+import chalk from "chalk";
+import didYouMean from "didyoumean";
+import * as Result from "./Result";
 // import { Runner, Into } from './runner';
-import {
+import type {
   ArgParser,
+  ParseContext,
   ParsingInto,
   ParsingResult,
-  ParseContext,
 } from "./argparser";
-import { positional } from "./positional";
-import { From } from "./from";
-import { Runner } from "./runner";
-import { Aliased, Named, Descriptive, Versioned } from "./helpdoc";
-import chalk from "chalk";
 import { createCircuitBreaker, handleCircuitBreaker } from "./circuitbreaker";
-import * as Result from "./Result";
-import didYouMean from "didyoumean";
+import type { From } from "./from";
+import type { Aliased, Descriptive, Named, Versioned } from "./helpdoc";
+import { positional } from "./positional";
+import type { Runner } from "./runner";
 
 type Output<
   Commands extends Record<string, ArgParser<any> & Runner<any, any>>,
@@ -59,7 +59,7 @@ export function subcommands<
       if (cmd) {
         return cmd.cmdName;
       }
-      let errorMessage = `Not a valid subcommand name`;
+      let errorMessage = "Not a valid subcommand name";
 
       const closeOptions = didYouMean(
         str,
@@ -78,7 +78,7 @@ export function subcommands<
 
   const subcommand = positional({
     displayName: "subcommand",
-    description: "one of " + Object.keys(config.cmds).join(", "),
+    description: `one of ${Object.keys(config.cmds).join(", ")}`,
     type,
   });
 
@@ -129,7 +129,7 @@ export function subcommands<
       for (const key of Object.keys(config.cmds)) {
         const cmd = config.cmds[key];
         let description = cmd.description ?? "";
-        description = description && " - " + description + " ";
+        description = description && ` - ${description} `;
         if (cmd.aliases?.length) {
           const aliasTxt = cmd.aliases.length === 1 ? "alias" : "aliases";
           const aliases = cmd.aliases.join(", ");

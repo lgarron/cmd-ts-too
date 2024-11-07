@@ -1,16 +1,15 @@
 import { identity } from "../src/from";
-import { Type } from "../src/type";
-import { InputOf, OutputOf } from "../src/from";
+import type { InputOf, OutputOf } from "../src/from";
+import type { Type } from "../src/type";
 
 export const number: Type<string, number> = {
   async from(str) {
-    const decoded = parseInt(str, 10);
+    const decoded = Number.parseInt(str, 10);
 
     if (Number.isNaN(decoded)) {
       throw new Error("Not a number");
-    } else {
-      return decoded;
     }
+    return decoded;
   },
   displayName: "number",
   description: "a number",
@@ -23,7 +22,7 @@ export function single<T extends Type<any, any>>(
     ...t,
     from(ts) {
       if (ts.length === 0) {
-        return { result: "error", message: `No value provided` };
+        return { result: "error", message: "No value provided" };
       }
 
       if (ts.length > 1) {

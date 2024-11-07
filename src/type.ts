@@ -1,6 +1,6 @@
-import { From, OutputOf, InputOf, FromFn } from "./from";
-import { Descriptive, Displayed } from "./helpdoc";
-import { Default } from "./default";
+import type { Default } from "./default";
+import type { From, FromFn, InputOf, OutputOf } from "./from";
+import type { Descriptive, Displayed } from "./helpdoc";
 
 export { identity, OutputOf, InputOf } from "./from";
 
@@ -12,12 +12,12 @@ export type Type<From_, To> = From<From_, To> &
  */
 export function typeDef<T extends From<any, any> | FromFn<any, any>>(
   from: T,
+  // biome-ignore lint/complexity/noBannedTypes: TODO
 ): T extends FromFn<any, any> ? {} : Omit<T, "from"> {
   if (typeof from === "function") {
     return {} as any;
-  } else {
-    return from as any;
   }
+  return from as any;
 }
 
 /**
@@ -26,9 +26,8 @@ export function typeDef<T extends From<any, any> | FromFn<any, any>>(
 export function fromFn<A, B>(t: FromFn<A, B> | From<A, B>): FromFn<A, B> {
   if (typeof t === "function") {
     return t;
-  } else {
-    return t.from;
   }
+  return t.from;
 }
 
 /**

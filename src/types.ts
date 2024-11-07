@@ -1,4 +1,4 @@
-import { Type, identity, InputOf, OutputOf } from "./type";
+import { type InputOf, type OutputOf, type Type, identity } from "./type";
 
 /**
  * A number type to be used with `option`
@@ -7,13 +7,12 @@ import { Type, identity, InputOf, OutputOf } from "./type";
  */
 export const number: Type<string, number> = {
   async from(str) {
-    const decoded = parseFloat(str);
+    const decoded = Number.parseFloat(str);
 
     if (Number.isNaN(decoded)) {
       throw new Error("Not a number");
-    } else {
-      return decoded;
     }
+    return decoded;
   },
   displayName: "number",
   description: "a number",
