@@ -17,7 +17,7 @@
     "now-build": "mdbook build --dest-dir=public",
     "start": "npx yarn build --watch",
     "prepublishOnly": "rm -rf dist && npx yarn build && npx yarn test",
-    "test": "echo \"Skipping tests.\" # TODO: vitest",
+    "test": "vitest",
     "ts-node": "./scripts/ts-node",
     "format": "npx @biomejs/biome format --write ./example ./scripts ./src ./test"
   },
@@ -34,7 +34,6 @@
     "trailingComma": "es5"
   },
   "dependencies": {
-    "@types/node": "^22.9.0",
     "chalk": "^4.0.0",
     "debug": "^4.3.4",
     "didyoumean": "^1.2.2",
@@ -47,6 +46,7 @@
     "@types/debug": "4.1.7",
     "@types/didyoumean": "1.2.0",
     "@types/fs-extra": "9.0.13",
+    "@types/node": "^22.9.0",
     "@types/node-fetch": "2.6.2",
     "@types/request": "2.48.8",
     "@typescript-eslint/eslint-plugin": "5.30.7",
