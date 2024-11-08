@@ -7,7 +7,6 @@
     "moduleResolution": "bundler",
     "noEmit": true,
     "lib": ["esnext"],
-    "downlevelIteration": true,
     "sourceMap": true,
     "outDir": "./dist",
     "rootDir": ".",
@@ -22,8 +21,6 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "esModuleInterop": true,
-    "declaration": true,
     "skipLibCheck": true,
     "types": ["@types/node", "./test/vendor/bun-types-workaround.d.ts"]
   }
