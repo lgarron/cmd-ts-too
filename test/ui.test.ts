@@ -1,5 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { app } from "./util";
 
 test("help for subcommands", async () => {
@@ -114,14 +115,11 @@ describe("allows positional arguments", () => {
     expect(result.exitCode).toBe(1);
   });
 
-  // TODO
-  // test("no positionals => all default", async () => {
-  //   const result = await runApp3(["sub2"]);
-  //   expect(result.all).toMatchInlineSnapshot(
-  //     `"{ name: 'anonymous', age: undefined }"`,
-  //   );
-  //   expect(result.exitCode).toBe(0);
-  // });
+  test("no positionals => all default", async () => {
+    const result = await runApp3(["sub2"]);
+    expect(result.all).toEqual("{ name: 'anonymous', age: undefined }");
+    expect(result.exitCode).toBe(0);
+  });
 
   test("expects the correct order", async () => {
     // should fail because we get an age first and `hello` is not a number
@@ -130,15 +128,14 @@ describe("allows positional arguments", () => {
     expect(result.exitCode).toBe(1);
   });
 
-  // TODO
-  // test("can take all the arguments", async () => {
-  //   // should fail because we get an age first and `hello` is not a number
-  //   const result = await runApp3(["sub2", "10", "ben"]);
-  //   expect(result.all).toMatchInlineSnapshot(`"{ name: 'ben', age: 10 }"`);
-  //   expect(result.exitCode).toBe(0);
-  // });
+  test("can take all the arguments", async () => {
+    // should fail because we get an age first and `hello` is not a number
+    const result = await runApp3(["sub2", "10", "ben"]);
+    expect(result.all).toEqual("{ name: 'ben', age: 10 }");
+    expect(result.exitCode).toBe(0);
+  });
 });
 
-const runApp1 = app(import.meta.resolve("../example/app.ts"));
-const runApp2 = app(import.meta.resolve("../example/app2.ts"));
-const runApp3 = app(import.meta.resolve("../example/app3.ts"));
+const runApp1 = app(fileURLToPath(import.meta.resolve("../example/app.ts")));
+const runApp2 = app(fileURLToPath(import.meta.resolve("../example/app2.ts")));
+const runApp3 = app(fileURLToPath(import.meta.resolve("../example/app3.ts")));
