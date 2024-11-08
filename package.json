@@ -4,7 +4,7 @@
   "homepage": "https://github.com/lgarron/cmd-ts-too",
   "license": "MIT",
   "author": "Gal Schlezinger / Lucas Garron",
-  "main": "dist/index.js",
+  "main": "dist/lib/cmd-ts-too/index.js",
   "files": ["dist", "batteries", "src"],
   "engines": {
     "node": ">=16.0.0",
@@ -12,7 +12,7 @@
   },
   "scripts": {
     "test": "bun test",
-    "build-book": "npx cargo-mdbook build --dest-dir=public",
+    "build-book": "npx cargo-mdbook build --dest-dir=dist/web",
     "prepublishOnly": "rm -rf dist && npx yarn build && npx yarn test"
   },
   "dependencies": {

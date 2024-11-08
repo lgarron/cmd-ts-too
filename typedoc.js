@@ -5,7 +5,7 @@ module.exports = {
   excludePrivate: true,
   hideGenerator: true,
   includes: "./src",
-  out: "public",
+  out: "dist/web",
   module: "commonjs",
   stripInternal: "true",
 };

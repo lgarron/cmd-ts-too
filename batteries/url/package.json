@@ -1,4 +1,4 @@
 {
-  "types": "../dist/batteries/url.d.ts",
-  "module": "../dist/batteries/url.js"
+  "types": "../dist/lib/cmd-ts-too/batteries/url.d.ts",
+  "module": "../dist/lib/cmd-ts-too/batteries/url.js"
 }
