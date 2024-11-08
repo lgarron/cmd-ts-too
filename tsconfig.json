@@ -1,5 +1,5 @@
 {
-  "include": ["src"],
+  "include": ["example", "script", "src", "test"],
   "exclude": ["dist"],
   "compilerOptions": {
     "target": "esnext",
@@ -9,7 +9,7 @@
     "downlevelIteration": true,
     "sourceMap": true,
     "outDir": "./dist",
-    "rootDir": "./src",
+    "rootDir": ".",
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,

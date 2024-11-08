@@ -117,7 +117,7 @@ describe("allows positional arguments", () => {
 
   test("no positionals => all default", async () => {
     const result = await runApp3(["sub2"]);
-    expect(JSON.parse(result.all ?? "{}")).toEqual({
+    expect(JSON.parse((result.all as string) ?? "{}")).toEqual({
       name: "anonymous",
       age: undefined,
     });
@@ -135,7 +135,10 @@ describe("allows positional arguments", () => {
     // should fail because we get an age first and `hello` is not a number
     // TODO: why should this fail?
     const result = await runApp3(["sub2", "10", "ben"]);
-    expect(JSON.parse(result.all ?? "{}")).toEqual({ name: "ben", age: 10 });
+    expect(JSON.parse((result.all as string) ?? "{}")).toEqual({
+      name: "ben",
+      age: 10,
+    });
     expect(result.exitCode).toBe(0);
   });
 });

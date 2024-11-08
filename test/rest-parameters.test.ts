@@ -13,7 +13,7 @@ it("should be able to use rest parameters after the positional", async () => {
     "--rest",
     "parameters",
   ]);
-  expect(JSON.parse(result.stdout)).toEqual({
+  expect(JSON.parse(result.stdout as string)).toEqual({
     scriptName: "pos",
     everythingElse: ["more", "--rest parameters"],
     //                       ^ this is weird, but it's the way it is.
