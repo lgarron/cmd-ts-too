@@ -9,9 +9,9 @@
   "scripts": {
     "build": "tsc",
     "test": "bun test",
-    "lint": "npx @biomejs/biome check ./example ./scripts ./src ./test",
-    "format": "npx @biomejs/biome format --write ./example ./scripts ./src ./test",
-    "now-build": "npx cargo-mdbook build --dest-dir=public",
+    "lint": "npx @biomejs/biome check ./example ./script ./src ./test",
+    "format": "npx @biomejs/biome format --write ./example ./script ./src ./test",
+    "build-book": "npx cargo-mdbook build --dest-dir=public",
     "prepublishOnly": "rm -rf dist && npx yarn build && npx yarn test"
   },
   "dependencies": {

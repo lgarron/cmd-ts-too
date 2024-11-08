@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test";
-import { type AstNode, parse } from "../../src/newparser/parser";
+import { parse } from "../../src/newparser/parser";
 import { tokenize } from "../../src/newparser/tokenizer";
 import { createRegisterOptions } from "../createRegisterOptions";
 

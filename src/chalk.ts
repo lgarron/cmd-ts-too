@@ -1,4 +1,4 @@
-import chalk, { type Chalk } from "chalk";
+import chalk from "chalk";
 
 let mode: "chalk" | "tags" | "disabled" = "chalk";
 
@@ -77,7 +77,7 @@ function generateColoredBody<T>(
 }
 
 const chalked = generateColoredBody({}, [], (levels, str) => {
-  const color = levels.reduce<Chalk>((c, curr) => c[curr], chalk);
+  const color = levels.reduce<typeof chalk>((c, curr) => c[curr], chalk);
   return color(str);
 });
 

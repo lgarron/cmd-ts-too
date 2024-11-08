@@ -10,6 +10,7 @@
       "suspicious": {
         "noExplicitAny": "off"
       }
-    }
+    },
+    "ignore": ["./test/vendor/bun-types-workaround.d.ts"]
   }
 }
