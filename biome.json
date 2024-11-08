@@ -1,7 +1,11 @@
 {
   "files": {
     "include": ["*.json", "*.js", "*.ts"],
-    "ignore": ["./dist", "./test/vendor/bun-types-workaround.d.ts"]
+    "ignore": [
+      "./dist",
+      "./package.json",
+      "./test/vendor/bun-types-workaround.d.ts"
+    ]
   },
   "formatter": {
     "indentStyle": "space",
