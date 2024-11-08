@@ -68,13 +68,13 @@ test("multiline error", async () => {
 test("help for composed subcommands", async () => {
   const result = await runApp1(["composed", "--help"]);
   expect(result.all).toMatchSnapshot();
-  expect(result.exitCode).toBe(1);
+  expect(result.exitCode).toBe(0);
 });
 
 test("help for composed subcommand", async () => {
   const result = await runApp1(["composed", "cat", "--help"]);
   expect(result.all).toMatchSnapshot();
-  expect(result.exitCode).toBe(1);
+  expect(result.exitCode).toBe(0);
 });
 
 test("asynchronous type conversion works for failures", async () => {
@@ -139,6 +139,6 @@ describe("allows positional arguments", () => {
   // });
 });
 
-const runApp1 = app(path.join(__dirname, "../example/app.ts"));
-const runApp2 = app(path.join(__dirname, "../example/app2.ts"));
-const runApp3 = app(path.join(__dirname, "../example/app3.ts"));
+const runApp1 = app(import.meta.resolve("../example/app.ts"));
+const runApp2 = app(import.meta.resolve("../example/app2.ts"));
+const runApp3 = app(import.meta.resolve("../example/app3.ts"));

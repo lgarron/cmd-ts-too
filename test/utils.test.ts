@@ -1,6 +1,6 @@
+import { describe, expect, it } from "bun:test";
 import chalk from "chalk";
 import stripAnsi from "strip-ansi";
-import { describe, expect, it } from "vitest";
 import { type AllOrNothing, padNoAnsi } from "../src/utils";
 
 describe("padNoAnsi", () => {

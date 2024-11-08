@@ -1,4 +1,4 @@
-import { expect, test, vitest } from "vitest";
+import { expect, test } from "bun:test";
 import * as Result from "../src/Result";
 import { command } from "../src/command";
 import { flag } from "../src/flag";
@@ -10,7 +10,7 @@ import { subcommands } from "../src/subcommands";
 import { createRegisterOptions } from "./createRegisterOptions";
 import { boolean, string } from "./test-types";
 
-const logMock = vitest.fn();
+const logMock = console.log;
 
 const greeter = command({
   name: "greeter",

@@ -1,5 +1,5 @@
+import { expect, test } from "bun:test";
 import chalk from "chalk";
-import { expect, test } from "vitest";
 import * as Result from "../src/Result";
 import { errorBox } from "../src/errorBox";
 import { parse } from "../src/newparser/parser";

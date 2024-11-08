@@ -4,9 +4,7 @@
   "homepage": "https://cmd-ts.now.sh",
   "license": "MIT",
   "author": "Gal Schlezinger",
-  "main": "dist/cjs/index.js",
-  "typings": "dist/cjs/index.d.ts",
-  "module": "dist/esm/index.js",
+  "main": "dist/index.js",
   "files": ["dist", "batteries"],
   "scripts": {
     "build": "tsc && tsc --project ./tsconfig.esm.json",
@@ -40,6 +38,7 @@
     "@biomejs/biome": "^1.9.4",
     "@changesets/cli": "2.23.2",
     "@swc-node/register": "1.5.1",
+    "@types/bun": "^1.1.13",
     "@types/debug": "4.1.7",
     "@types/didyoumean": "1.2.0",
     "@types/fs-extra": "9.0.13",

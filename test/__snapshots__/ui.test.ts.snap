@@ -200,3 +200,22 @@ exports[`too many arguments 1`] = `
 
 [31m[1mhint: [22m[39mfor more information, try '[33msubcmds cat --help[39m'"
 `;
+
+exports[`allows positional arguments help shows them 1`] = `
+"[1msubcmds sub2[22m
+
+ARGUMENTS:
+  [number] - a number[2m [optional][22m
+  [str]    - a string[2m [default: [3manonymous[23m][22m
+
+FLAGS:
+  --help, -h - show help"
+`;
+
+exports[`allows positional arguments expects the correct order 1`] = `
+"[0m[31m[31m[1merror: [22m[39mfound [33m1[39m error
+
+  [31m[1m1.[22m[39m [31mNot a number[39m
+
+[31m[1mhint: [22m[39mfor more information, try '[33msubcmds sub2 --help[39m'[0m"
+`;

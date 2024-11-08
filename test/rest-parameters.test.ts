@@ -1,5 +1,5 @@
+import { expect, it } from "bun:test";
 import path from "node:path";
-import { expect, it } from "vitest";
 import { app } from "./util";
 
 const runAppRestExample = app(

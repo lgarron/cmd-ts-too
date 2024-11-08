@@ -1,4 +1,4 @@
-import { expect, test } from "vitest";
+import { expect, test } from "bun:test";
 import * as Result from "../src/Result";
 import { flag } from "../src/flag";
 import { parse } from "../src/newparser/parser";

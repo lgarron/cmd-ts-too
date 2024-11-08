@@ -1,6 +1,6 @@
+import { expect, test } from "bun:test";
 import path from "node:path";
 import { getTypes } from "infer-types";
-import { expect, test } from "vitest";
 
 test("types are inferred correctly", () => {
   const filepath = path.join(__dirname, "../example/app.ts");

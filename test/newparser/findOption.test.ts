@@ -1,4 +1,4 @@
-import { expect, test } from "vitest";
+import { expect, test } from "bun:test";
 import { findOption } from "../../src/newparser/findOption";
 import { parse } from "../../src/newparser/parser";
 import { tokenize } from "../../src/newparser/tokenizer";

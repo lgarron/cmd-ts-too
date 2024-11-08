@@ -1,4 +1,4 @@
-import { expect, test } from "vitest";
+import { expect, test } from "bun:test";
 import * as Result from "../src/Result";
 import { type AstNode, parse } from "../src/newparser/parser";
 import { tokenize } from "../src/newparser/tokenizer";
