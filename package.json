@@ -4,6 +4,7 @@
   "homepage": "https://github.com/lgarron/cmd-ts-too",
   "license": "MIT",
   "author": "Gal Schlezinger / Lucas Garron",
+  "type": "module",
   "main": "dist/lib/cmd-ts-too/index.js",
   "files": ["dist", "batteries", "src"],
   "engines": {
