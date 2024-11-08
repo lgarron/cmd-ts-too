@@ -8,11 +8,11 @@
   "files": ["dist", "batteries"],
   "scripts": {
     "build": "tsc",
-    "lint": "npx @biomejs/biome check ./example ./scripts ./src ./test",
-    "now-build": "mdbook build --dest-dir=public",
-    "prepublishOnly": "rm -rf dist && npx yarn build && npx yarn test",
     "test": "bun test",
-    "format": "npx @biomejs/biome format --write ./example ./scripts ./src ./test"
+    "lint": "npx @biomejs/biome check ./example ./scripts ./src ./test",
+    "format": "npx @biomejs/biome format --write ./example ./scripts ./src ./test",
+    "now-build": "npx cargo-mdbook build --dest-dir=public",
+    "prepublishOnly": "rm -rf dist && npx yarn build && npx yarn test"
   },
   "dependencies": {
     "chalk": "^5.3.0",
@@ -32,8 +32,6 @@
     "execa": "9.5.1",
     "fs-extra": "11.2.0",
     "infer-types": "0.0.2",
-    "tempy": "3.1.0",
-    "typedoc": "0.26.11",
     "typescript": "^5.6.3",
     "yarn": "^1.22.22"
   }
