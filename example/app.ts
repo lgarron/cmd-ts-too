@@ -1,6 +1,4 @@
-#!/usr/bin/env YARN_SILENT=1 yarn ts-node
-
-/* istanbul ignore file */
+#!/usr/bin/env bun
 
 import {
   binary,

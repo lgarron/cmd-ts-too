@@ -1,4 +1,11 @@
 {
   "extends": "../tsconfig.noEmit.json",
-  "include": ["."]
+  "include": [
+    "."
+  ],
+  "compilerOptions": {
+    "types": [
+      "./vendor/bun-types-workaround.d.ts"
+    ]
+  }
 }

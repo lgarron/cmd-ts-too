@@ -1,10 +1,16 @@
 {
-  "include": ["src"],
-  "exclude": ["dist"],
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "dist"
+  ],
   "compilerOptions": {
     "target": "es2018",
     "module": "commonjs",
-    "lib": ["ES2018"],
+    "lib": [
+      "ES2018"
+    ],
     "downlevelIteration": true,
     "sourceMap": true,
     "outDir": "./dist/cjs",

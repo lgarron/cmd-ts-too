@@ -1,4 +1,4 @@
-#!/usr/bin/env YARN_SILENT=1 yarn ts-node
+#!/usr/bin/env bun
 
 import {
   type Type,
