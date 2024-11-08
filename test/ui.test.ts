@@ -96,8 +96,14 @@ test("subcommands show their version", async () => {
   expect(result.exitCode).toBe(0);
 });
 
-test("failures in defaultValue", async () => {
+test("shows help for blank args instead of error by default", async () => {
   const result = await runApp2([]);
+  expect(result.all).toMatchSnapshot();
+  expect(result.exitCode).toBe(1);
+});
+
+test("failures in defaultValue", async () => {
+  const result = await runApp2([], { NO_ARGS_FALLBACK_FOR_TESTING: "error" });
   expect(result.all).toMatchSnapshot();
   expect(result.exitCode).toBe(1);
 });

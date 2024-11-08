@@ -33,6 +33,7 @@ type CommandConfig<
   description?: string;
   handler: Handler;
   aliases?: string[];
+  noArgsFallback?: "help" | "error";
 };
 
 type Output<Args extends ArgTypes> = {
@@ -175,8 +176,18 @@ export function command<
       return Result.ok(resultObject);
     },
     async run(context) {
-      const breaker = await circuitbreaker.parse(context);
+      context.anyArgumentsProvided ??= context.nodes.length > 0;
+      let breaker = await circuitbreaker.parse(context);
       const parsed = await this.parse(context);
+
+      if (
+        Result.isErr(parsed) &&
+        config.noArgsFallback !== "error" &&
+        !context.anyArgumentsProvided
+      ) {
+        breaker = Result.ok("help");
+        context.autoFallbackHelpTriggered = true;
+      }
       handleCircuitBreaker(context, this, breaker);
 
       if (Result.isErr(parsed)) {

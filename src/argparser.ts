@@ -27,6 +27,7 @@ export type ParseContext = {
   /** The command path breadcrumbs, to print when asking for help */
   hotPath?: string[];
   autoFallbackHelpTriggered?: boolean;
+  anyArgumentsProvided?: boolean;
 };
 
 export type ParsingResult<Into> = Result<FailedParse, Into>;

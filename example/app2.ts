@@ -1,5 +1,6 @@
 #!/usr/bin/env bun
 
+import { env } from "node:process";
 import {
   type Type,
   boolean,
@@ -35,6 +36,10 @@ const Repo: Type<string, string> = {
 
 const app = command({
   name: "build",
+  // biome-ignore lint/complexity/useLiteralKeys: nopez
+  noArgsFallback: (env["NO_ARGS_FALLBACK_FOR_TESTING"] ?? "help") as
+    | "help"
+    | "error",
   args: {
     user: option({
       type: string,

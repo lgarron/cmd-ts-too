@@ -182,3 +182,17 @@ where [3m<subcommand>[23m can be one of:
 
 [2mFor more help, try running \`[33msubcmds <subcommand> --help[39m\`[22m"
 `;
+
+exports[`shows help for blank args instead of error by default 1`] = `
+"[1mbuild[22m
+
+OPTIONS:
+  --user, -u <str>      - a string[2m [env: APP_USER][22m
+  --password, -p <str>  - a string[2m [env: APP_PASS][22m
+  --repo, -r <uri>      - repository uri
+  --pr-number, -b <str> - a string[2m [env: APP_BRANCH][22m[2m [optional][22m
+
+FLAGS:
+  --dev, -D  - a boolean
+  --help, -h - show help"
+`;
