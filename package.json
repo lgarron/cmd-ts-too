@@ -22,10 +22,10 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
-    "@types/bun": "^1.1.13",
     "@types/debug": "4.1.12",
     "@types/didyoumean": "1.2.2",
     "@types/fs-extra": "11.0.4",
+    "@types/node": "^22.9.0",
     "cargo-mdbook": "0.4.4",
     "chalk-template": "^1.1.0",
     "docs-ts": "0.8.0",
