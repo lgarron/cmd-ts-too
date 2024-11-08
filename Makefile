@@ -34,7 +34,7 @@ publish:
 
 .PHONY: clean
 clean:
-	rm -rf ./dist
+	rm -rf ./dist ./public
 
 .PHONY: setup
 setup:
