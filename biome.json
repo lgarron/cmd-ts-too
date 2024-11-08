@@ -1,4 +1,8 @@
 {
+  "files": {
+    "include": ["*.json", "*.js", "*.ts"],
+    "ignore": ["./dist", "./test/vendor/bun-types-workaround.d.ts"]
+  },
   "formatter": {
     "indentStyle": "space",
     "indentWidth": 2
@@ -10,7 +14,6 @@
       "suspicious": {
         "noExplicitAny": "off"
       }
-    },
-    "ignore": ["./test/vendor/bun-types-workaround.d.ts"]
+    }
   }
 }

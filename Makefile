@@ -17,20 +17,18 @@ update-Makefile:
 	@if [ "$(shell uname -s)" = "Darwin" ] ; then sed -i "" ${UPDATE_MAKEFILE_SED_ARGS} ; fi
 	@if [ "$(shell uname -s)" != "Darwin" ] ; then sed -i"" ${UPDATE_MAKEFILE_SED_ARGS} ; fi
 
-BIOME_PATHS = *.json ./batteries ./example ./script ./src ./test
-
 .PHONY: build
 build:
 	npx tsc --project ./tsconfig.build.json
 
 .PHONY: lint
 lint:
-	npx @biomejs/biome check ${BIOME_PATHS}
+	npx @biomejs/biome check
 	npx tsc
 
 .PHONY: format
 format:
-	npx @biomejs/biome format --write ${BIOME_PATHS}
+	npx @biomejs/biome format --write
 
 .PHONY: publish
 publish:
