@@ -104,7 +104,7 @@ test("failures in defaultValue", async () => {
 test("subcommands with process.argv.slice(2)", async () => {
   const result = await runApp3(["--help"]);
   expect(result.all).toMatchSnapshot();
-  expect(result.exitCode).toBe(1);
+  expect(result.exitCode).toBe(0);
 });
 
 describe("allows positional arguments", () => {
