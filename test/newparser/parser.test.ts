@@ -39,7 +39,7 @@ test("parses forcePositional if it is the last token", () => {
   const argv = "scripts/ts-node src/example/app.ts cat /tmp/a --".split(" ");
   const tokens = tokenize(argv);
   const tree = parse(tokens, createRegisterOptions());
-  expect(tree.map((x) => x.type)).toContain<AstNode["type"]>("forcePositional");
+  expect(tree.map((x) => x.type)).toContain("forcePositional");
 });
 
 test("welp", () => {
