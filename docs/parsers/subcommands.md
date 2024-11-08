@@ -11,7 +11,7 @@ This is yet another combinator, which takes a couple of [`command`](./command.md
 ### Usage
 
 ```ts
-import { command, subcommands, run } from 'cmd-ts';
+import { command, subcommands, run } from 'cmd-ts-too;
 
 const cmd1 = command({
   /* ... */

@@ -1,5 +1,5 @@
 /**
- * The index module: the entrance to the world of cmd-ts 😎
+ * The index module: the entrance to the world of cmd-ts-too😎
  *
  * @packageDocumentation
  */

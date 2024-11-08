@@ -1,8 +1,12 @@
-# `cmd-ts`
+This is a fork of: [text](https://github.com/Schniz/cmd-ts)
+
+--------
+
+# `cmd-ts-too`
 
 > 💻 A type-driven command line argument parser, with awesome error reporting 🤤
 
-Not all command line arguments are strings, but for some reason, our CLI parsers force us to use strings everywhere. 🤔 `cmd-ts` is a fully-fledged command line argument parser, influenced by Rust's [`clap`](https://github.com/clap-rs/clap) and [`structopt`](https://github.com/TeXitoi/structopt):
+Not all command line arguments are strings, but for some reason, our CLI parsers force us to use strings everywhere. 🤔 `cmd-ts-too` is a fully-fledged command line argument parser, influenced by Rust's [`clap`](https://github.com/clap-rs/clap) and [`structopt`](https://github.com/TeXitoi/structopt):
 
 🤩 Awesome autocomplete, awesome safeness
 
@@ -13,7 +17,7 @@ Not all command line arguments are strings, but for some reason, our CLI parsers
 ### Basic usage
 
 ```ts
-import { command, run, string, number, positional, option } from 'cmd-ts';
+import { command, run, string, number, positional, option } from 'cmd-ts-too';
 
 const cmd = command({
   name: 'my-command',
@@ -51,7 +55,7 @@ Let's say we're about to write a `cat` clone. We want to accept a file to read i
 ```ts
 // my-app.ts
 
-import { command, run, positional, string } from 'cmd-ts';
+import { command, run, positional, string } from 'cmd-ts-too';
 
 const app = command({
   /// name: ...,
@@ -78,7 +82,7 @@ What if we had a way to get a `Stream` out of the parser, instead of a plain str
 ```ts
 // ReadStream.ts
 
-import { Type } from 'cmd-ts';
+import { Type } from 'cmd-ts-too;
 import fs from 'fs';
 
 // Type<string, Stream> reads as "A type from `string` to `Stream`"
@@ -99,7 +103,7 @@ Now we can use (and share) this type and always get a `Stream`, instead of carry
 ```ts
 // my-app.ts
 
-import { command, run, positional } from 'cmd-ts';
+import { command, run, positional } from 'cmd-ts-too;
 
 const app = command({
   // name: ...,

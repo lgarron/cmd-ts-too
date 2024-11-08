@@ -30,7 +30,7 @@ This parser will fail to parse if:
 ### Usage
 
 ```ts
-import { command, number, option } from 'cmd-ts';
+import { command, number, option } from 'cmd-ts-too;
 
 const myNumber = option({
   type: number,

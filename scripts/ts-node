@@ -1,5 +1,0 @@
-#!/bin/bash
-
-DIRECTORY="$(dirname "$0")"
-
-SWC_NODE_PROJECT=$DIRECTORY/tsconfig.json node -r esm -r @swc-node/register "$@"

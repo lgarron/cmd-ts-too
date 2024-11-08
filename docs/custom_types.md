@@ -9,7 +9,7 @@ Let's say we're about to write a `cat` clone. We want to accept a file to read i
 ```ts
 // my-app.ts
 
-import { command, run, positional, string } from 'cmd-ts';
+import { command, run, positional, string } from 'cmd-ts-too;
 
 const app = command({
   /// name: ...,
@@ -44,7 +44,7 @@ So in our app, we need to implement a `Type<string, Stream>`, or — a type that
 ```ts
 // ReadStream.ts
 
-import { Type } from 'cmd-ts';
+import { Type } from 'cmd-ts-too;
 import fs from 'fs';
 
 // Type<string, Stream> reads as "A type from `string` to `Stream`"
@@ -71,7 +71,7 @@ Using the type we've just created is no different that using `string`:
 ```ts
 // my-app.ts
 
-import { command, run, positional } from 'cmd-ts';
+import { command, run, positional } from 'cmd-ts-too;
 
 const app = command({
   // name: ...,

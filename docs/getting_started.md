@@ -17,7 +17,7 @@ yarn add cmd-ts
 All the interesting stuff is exported from the main module. Try writing the following app:
 
 ```ts
-import { command, run, string, positional } from 'cmd-ts';
+import { command, run, string, positional } from 'cmd-ts-too;
 
 const app = command({
   name: 'my-first-app',

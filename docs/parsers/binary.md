@@ -8,7 +8,7 @@ A standard Node executable will receive two additional arguments that are often 
 `cmd-ts` provides a small helper that ignores the first two positional arguments that a command receives:
 
 ```ts
-import { binary, command, run } from 'cmd-ts';
+import { binary, command, run } from 'cmd-ts-too;
 
 const myCommand = command({
   /* ... */

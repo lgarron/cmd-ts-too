@@ -32,7 +32,7 @@ This parser will fail to parse if:
 ### Usage
 
 ```ts
-import { command, boolean, flag } from 'cmd-ts';
+import { command, boolean, flag } from 'cmd-ts-too;
 
 const myFlag = flag({
   type: boolean,
