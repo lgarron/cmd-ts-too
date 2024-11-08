@@ -1,17 +1,11 @@
 {
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "dist"
-  ],
+  "include": ["src"],
+  "exclude": ["dist"],
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
     "moduleResolution": "bundler",
-    "lib": [
-      "esnext"
-    ],
+    "lib": ["esnext"],
     "downlevelIteration": true,
     "sourceMap": true,
     "outDir": "./dist",
@@ -29,6 +23,7 @@
     "noFallthroughCasesInSwitch": true,
     "esModuleInterop": true,
     "declaration": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "types": ["@types/node", "./test/vendor/bun-types-workaround.d.ts"]
   }
 }
