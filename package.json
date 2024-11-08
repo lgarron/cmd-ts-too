@@ -1,12 +1,16 @@
 {
   "name": "cmd-ts-too",
-  "version": "0.14.2",
+  "version": "0.14.3",
   "homepage": "https://github.com/lgarron/cmd-ts-too",
   "license": "MIT",
   "author": "Gal Schlezinger / Lucas Garron",
   "type": "module",
   "main": "dist/lib/cmd-ts-too/index.js",
-  "files": ["dist", "batteries", "src"],
+  "files": [
+    "dist",
+    "batteries",
+    "src"
+  ],
   "engines": {
     "node": ">=16.0.0",
     "bun": ">=1.0.30"
