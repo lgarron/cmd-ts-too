@@ -2,7 +2,7 @@
 # https://github.com/lgarron/Makefile-scripts
 
 # Note: the first command becomes the default `make` target.
-NPM_COMMANDS = build test lint format now-build prepublishOnly
+NPM_COMMANDS = build test now-build prepublishOnly
 
 .PHONY: $(NPM_COMMANDS)
 $(NPM_COMMANDS):
@@ -16,6 +16,16 @@ update-Makefile:
 	@echo "Updating Makefile…"
 	@if [ "$(shell uname -s)" = "Darwin" ] ; then sed -i "" ${UPDATE_MAKEFILE_SED_ARGS} ; fi
 	@if [ "$(shell uname -s)" != "Darwin" ] ; then sed -i"" ${UPDATE_MAKEFILE_SED_ARGS} ; fi
+
+
+.PHONY: lint
+lint:
+	npx @biomejs/biome check *.json ./example ./script ./src ./test
+	npx tsc --noEmit
+
+.PHONY: format
+format:
+	npx @biomejs/biome format --write *.json ./example ./script ./src ./test
 
 .PHONY: publish
 publish:
