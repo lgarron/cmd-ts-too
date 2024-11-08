@@ -1,16 +1,6 @@
-// Vitest Snapshot v1
+// Bun Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`allows positional arguments > expects the correct order 1`] = `
-"[31m[1merror: [22m[39mfound [33m1[39m error
-
-  [2msub2[22m [31mhello[39m
-[31m       [1m^[22m Not a number[39m
-
-
-[31m[1mhint: [22m[39mfor more information, try '[33msubcmds sub2 --help[39m'"
-`;
-
-exports[`allows positional arguments > help shows them 1`] = `
+exports[`allows positional arguments help shows them 1`] = `
 "[1msubcmds sub2[22m
 
 ARGUMENTS:
@@ -21,45 +11,15 @@ FLAGS:
   --help, -h - show help"
 `;
 
-exports[`asynchronous type conversion works for failures 1`] = `
-"[31m[1merror: [22m[39mfound [33m1[39m error
+exports[`allows positional arguments expects the correct order 1`] = `
+"[0m[31m[31m[1merror: [22m[39mfound [33m1[39m error
 
-  [2msubcmds[22m [2mcomposed[22m [2mcat[22m [31mhttps://httpstat.us/404[39m
-[31m                       [1m^[22m Got status Not Found 404 reading URL[39m
+  [31m[1m1.[22m[39m [31mNot a number[39m
 
-
-[31m[1mhint: [22m[39mfor more information, try '[33msubcmds composed cat --help[39m'"
+[31m[1mhint: [22m[39mfor more information, try '[33msubcmds sub2 --help[39m'[0m"
 `;
 
-exports[`asynchronous type conversion works for success 1`] = `"200 OK"`;
-
-exports[`composes errors 1`] = `
-"[31m[1merror: [22m[39mfound [33m3[39m errors
-
-  [2msubcmds[22m [2mgreet[22m [31m--times=not-a-number[39m [2mnot-capitalized[22m
-[31m                [1m^[22m Not a number[39m
-
-  [2msubcmds[22m [2mgreet[22m [2m--times=not-a-number[22m [31mnot-capitalized[39m
-[31m                                     [1m^[22m name must be capitalized[39m
-
-Along with the following error:
-  [31m[1m3.[22m[39m [31mNo value provided for --greeting[39m
-
-[31m[1mhint: [22m[39mfor more information, try '[33msubcmds greet --help[39m'"
-`;
-
-exports[`displays nested subcommand help if no arguments passed 1`] = `
-"[1msubcmds composed[3m <subcommand>[23m[22m
-[2m> [22ma nested subcommand
-
-where [3m<subcommand>[23m can be one of:
-
-[2m- [22mcat - A simple \`cat\` clone [2m[alias: read][22m
-
-[2mFor more help, try running \`[33msubcmds composed <subcommand> --help[39m\`[22m"
-`;
-
-exports[`displays subcommand help if no arguments passed 1`] = `
+exports[`help for subcommands 1`] = `
 "[1msubcmds[3m <subcommand>[23m[22m
 [2m> [22mAn awesome subcommand app!
 
@@ -73,14 +33,12 @@ where [3m<subcommand>[23m can be one of:
 [2mFor more help, try running \`[33msubcmds <subcommand> --help[39m\`[22m"
 `;
 
-exports[`failures in defaultValue 1`] = `
-"[31m[1merror: [22m[39mfound [33m3[39m errors
+exports[`invalid subcommand 1`] = `
+"[0m[31m[31m[1merror: [22m[39mfound [33m1[39m error
 
-  [31m[1m1.[22m[39m [31mNo value provided for --user[39m
-  [31m[1m2.[22m[39m [31mNo value provided for --password[39m
-  [31m[1m3.[22m[39m [31mDefault value not found for '--repo': Can't infer repo from git[39m
+  [31m[1m1.[22m[39m [31mNot a valid subcommand name[39m
 
-[31m[1mhint: [22m[39mfor more information, try '[33mbuild --help[39m'"
+[31m[1mhint: [22m[39mfor more information, try '[33msubcmds --help[39m'[0m"
 `;
 
 exports[`help for complex command 1`] = `
@@ -107,30 +65,24 @@ FLAGS:
   --version, -v       - print the version"
 `;
 
-exports[`help for composed subcommand 1`] = `
-"[1msubcmds composed cat[22m
-[2m> [22mA simple \`cat\` clone
+exports[`too many arguments 1`] = `
+"[0m[31m[31m[1merror: [22m[39mfound [33m1[39m error
 
-ARGUMENTS:
-  <stream>    - A file path or a URL to make a GET request to
-  [...stream] - A file path or a URL to make a GET request to
+  [31m[1m1.[22m[39m [31mUnknown arguments[39m
 
-FLAGS:
-  --help, -h - show help"
+[31m[1mhint: [22m[39mfor more information, try '[33msubcmds cat --help[39m'[0m"
 `;
 
-exports[`help for composed subcommands 1`] = `
-"[1msubcmds composed[3m <subcommand>[23m[22m
-[2m> [22ma nested subcommand
+exports[`suggests a subcommand on typo 1`] = `
+"[0m[31m[31m[1merror: [22m[39mfound [33m1[39m error
 
-where [3m<subcommand>[23m can be one of:
+  [31m[1m1.[22m[39m [31mNot a valid subcommand name[39m
+[31mDid you mean [3mgreet[23m?[39m
 
-[2m- [22mcat - A simple \`cat\` clone [2m[alias: read][22m
-
-[2mFor more help, try running \`[33msubcmds composed <subcommand> --help[39m\`[22m"
+[31m[1mhint: [22m[39mfor more information, try '[33msubcmds --help[39m'[0m"
 `;
 
-exports[`help for subcommands 1`] = `
+exports[`displays subcommand help if no arguments passed 1`] = `
 "[1msubcmds[3m <subcommand>[23m[22m
 [2m> [22mAn awesome subcommand app!
 
@@ -144,30 +96,81 @@ where [3m<subcommand>[23m can be one of:
 [2mFor more help, try running \`[33msubcmds <subcommand> --help[39m\`[22m"
 `;
 
-exports[`invalid subcommand 1`] = `
-"[31m[1merror: [22m[39mfound [33m1[39m error
+exports[`displays nested subcommand help if no arguments passed 1`] = `
+"[1msubcmds composed[3m <subcommand>[23m[22m
+[2m> [22ma nested subcommand
 
-  [2msubcmds[22m [31msubcommand-that-doesnt-exist[39m
-[31m          [1m^[22m Not a valid subcommand name[39m
+where [3m<subcommand>[23m can be one of:
 
+[2m- [22mcat - A simple \`cat\` clone [2m[alias: read][22m
 
-[31m[1mhint: [22m[39mfor more information, try '[33msubcmds --help[39m'"
+[2mFor more help, try running \`[33msubcmds composed <subcommand> --help[39m\`[22m"
+`;
+
+exports[`composes errors 1`] = `
+"[0m[31m[31m[1merror: [22m[39mfound [33m3[39m errors
+
+  [31m[1m1.[22m[39m [31mNot a number[39m
+  [31m[1m2.[22m[39m [31mname must be capitalized[39m
+  [31m[1m3.[22m[39m [31mNo value provided for --greeting[39m
+
+[31m[1mhint: [22m[39mfor more information, try '[33msubcmds greet --help[39m'[0m"
 `;
 
 exports[`multiline error 1`] = `
-"[31m[1merror: [22m[39mfound [33m2[39m errors
+"[0m[31m[31m[1merror: [22m[39mfound [33m2[39m errors
 
-  [2msubcmds[22m [2mgreet[22m [31mBon Jovi[39m
-[31m                [1m^[22m Woah, we're half way there[39m
-[31m                  Woah! living on a prayer![39m
-
-Along with the following error:
+  [31m[1m1.[22m[39m [31mWoah, we're half way there[39m
+[31mWoah! living on a prayer![39m
   [31m[1m2.[22m[39m [31mNo value provided for --greeting[39m
 
-[31m[1mhint: [22m[39mfor more information, try '[33msubcmds greet --help[39m'"
+[31m[1mhint: [22m[39mfor more information, try '[33msubcmds greet --help[39m'[0m"
 `;
 
+exports[`help for composed subcommands 1`] = `
+"[1msubcmds composed[3m <subcommand>[23m[22m
+[2m> [22ma nested subcommand
+
+where [3m<subcommand>[23m can be one of:
+
+[2m- [22mcat - A simple \`cat\` clone [2m[alias: read][22m
+
+[2mFor more help, try running \`[33msubcmds composed <subcommand> --help[39m\`[22m"
+`;
+
+exports[`help for composed subcommand 1`] = `
+"[1msubcmds composed cat[22m
+[2m> [22mA simple \`cat\` clone
+
+ARGUMENTS:
+  <stream>    - A file path or a URL to make a GET request to
+  [...stream] - A file path or a URL to make a GET request to
+
+FLAGS:
+  --help, -h - show help"
+`;
+
+exports[`asynchronous type conversion works for failures 1`] = `
+"[0m[31m[31m[1merror: [22m[39mfound [33m1[39m error
+
+  [31m[1m1.[22m[39m [31mGot status Not Found 404 reading URL[39m
+
+[31m[1mhint: [22m[39mfor more information, try '[33msubcmds composed cat --help[39m'[0m"
+`;
+
+exports[`asynchronous type conversion works for success 1`] = `"200 OK"`;
+
 exports[`subcommands show their version 1`] = `"1.0.0"`;
+
+exports[`failures in defaultValue 1`] = `
+"[0m[31m[31m[1merror: [22m[39mfound [33m3[39m errors
+
+  [31m[1m1.[22m[39m [31mNo value provided for --user[39m
+  [31m[1m2.[22m[39m [31mNo value provided for --password[39m
+  [31m[1m3.[22m[39m [31mDefault value not found for '--repo': Can't infer repo from git[39m
+
+[31m[1mhint: [22m[39mfor more information, try '[33mbuild --help[39m'[0m"
+`;
 
 exports[`subcommands with process.argv.slice(2) 1`] = `
 "[1msubcmds[3m <subcommand>[23m[22m
@@ -178,44 +181,4 @@ where [3m<subcommand>[23m can be one of:
 [2m- [22msub2
 
 [2mFor more help, try running \`[33msubcmds <subcommand> --help[39m\`[22m"
-`;
-
-exports[`suggests a subcommand on typo 1`] = `
-"[31m[1merror: [22m[39mfound [33m1[39m error
-
-  [2msubcmds[22m [31mgreek[39m
-[31m          [1m^[22m Not a valid subcommand name[39m
-[31m            Did you mean [3mgreet[23m?[39m
-
-
-[31m[1mhint: [22m[39mfor more information, try '[33msubcmds --help[39m'"
-`;
-
-exports[`too many arguments 1`] = `
-"[31m[1merror: [22m[39mfound [33m1[39m error
-
-  [2msubcmds[22m [31m--this=will-be-an-error[39m [2mcat[22m [2mpackage.json[22m [31m--and-also-this[39m
-[31m          [1m^[22m Unknown arguments[39m
-
-
-[31m[1mhint: [22m[39mfor more information, try '[33msubcmds cat --help[39m'"
-`;
-
-exports[`allows positional arguments help shows them 1`] = `
-"[1msubcmds sub2[22m
-
-ARGUMENTS:
-  [number] - a number[2m [optional][22m
-  [str]    - a string[2m [default: [3manonymous[23m][22m
-
-FLAGS:
-  --help, -h - show help"
-`;
-
-exports[`allows positional arguments expects the correct order 1`] = `
-"[0m[31m[31m[1merror: [22m[39mfound [33m1[39m error
-
-  [31m[1m1.[22m[39m [31mNot a number[39m
-
-[31m[1mhint: [22m[39mfor more information, try '[33msubcmds sub2 --help[39m'[0m"
 `;
