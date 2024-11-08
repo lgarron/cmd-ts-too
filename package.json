@@ -7,7 +7,6 @@
   "main": "dist/index.js",
   "files": ["dist", "batteries"],
   "scripts": {
-    "build": "npx tsc",
     "test": "bun test",
     "build-book": "npx cargo-mdbook build --dest-dir=public",
     "prepublishOnly": "rm -rf dist && npx yarn build && npx yarn test"

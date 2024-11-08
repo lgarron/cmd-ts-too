@@ -5,6 +5,7 @@
     "target": "esnext",
     "module": "esnext",
     "moduleResolution": "bundler",
+    "noEmit": true,
     "lib": ["esnext"],
     "downlevelIteration": true,
     "sourceMap": true,

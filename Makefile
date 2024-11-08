@@ -2,7 +2,7 @@
 # https://github.com/lgarron/Makefile-scripts
 
 # Note: the first command becomes the default `make` target.
-NPM_COMMANDS = build test build-book prepublishOnly
+NPM_COMMANDS = test build-book prepublishOnly
 
 .PHONY: $(NPM_COMMANDS)
 $(NPM_COMMANDS):
@@ -19,10 +19,14 @@ update-Makefile:
 
 BIOME_PATHS = *.json ./batteries ./example ./script ./src ./test
 
+.PHONY: build
+build:
+	npx tsc --project ./tsconfig.build.json
+
 .PHONY: lint
 lint:
 	npx @biomejs/biome check ${BIOME_PATHS}
-	npx tsc --noEmit
+	npx tsc
 
 .PHONY: format
 format:

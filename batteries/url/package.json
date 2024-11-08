@@ -1,4 +1,4 @@
 {
-  "types": "../../esm/batteries/url.d.ts",
-  "module": "../../esm/batteries/url.js"
+  "types": "../dist/batteries/url.d.ts",
+  "module": "../dist/batteries/url.js"
 }
