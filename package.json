@@ -5,7 +5,7 @@
   "license": "MIT",
   "author": "Gal Schlezinger / Lucas Garron",
   "main": "dist/index.js",
-  "files": ["dist", "batteries"],
+  "files": ["dist", "batteries", "src"],
   "engines": {
     "node": ">=16.0.0",
     "bun": ">=1.0.30"
