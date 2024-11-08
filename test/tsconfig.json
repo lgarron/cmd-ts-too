@@ -5,7 +5,7 @@
   ],
   "compilerOptions": {
     "types": [
-      "@types/bun",
+      "@types/node",
       "./vendor/bun-types-workaround.d.ts"
     ]
   }
