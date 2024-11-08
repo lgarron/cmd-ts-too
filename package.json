@@ -7,7 +7,7 @@
   "main": "dist/index.js",
   "files": ["dist", "batteries"],
   "scripts": {
-    "build": "tsc && tsc --project ./tsconfig.esm.json",
+    "build": "tsc",
     "lint": "npx @biomejs/biome check ./example ./scripts ./src ./test",
     "now-build": "mdbook build --dest-dir=public",
     "start": "npx yarn build --watch",
@@ -63,7 +63,7 @@
     "request": "2.88.2",
     "tempy": "3.0.0",
     "typedoc": "0.23.8",
-    "typescript": "4.7.4",
+    "typescript": "^5.6.3",
     "vite": "^5.4.10",
     "vitest": "0.18.1",
     "yarn": "^1.22.22"
