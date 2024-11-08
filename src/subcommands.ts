@@ -89,6 +89,7 @@ export function subcommands<
 
     // Called without any arguments? We default to subcommand help.
     if (!context.nodes.some((n) => !context.visitedNodes.has(n))) {
+      context.autoFallbackHelpTriggered = true;
       context.nodes.push({
         type: "longOption",
         index: 0,

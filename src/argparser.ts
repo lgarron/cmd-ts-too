@@ -26,6 +26,7 @@ export type ParseContext = {
   visitedNodes: Set<AstNode>;
   /** The command path breadcrumbs, to print when asking for help */
   hotPath?: string[];
+  autoFallbackHelpTriggered?: boolean;
 };
 
 export type ParsingResult<Into> = Result<FailedParse, Into>;

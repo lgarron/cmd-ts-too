@@ -17,7 +17,7 @@ const sub1 = command({
     name: option({ type: string, long: "name" }),
   },
   handler: ({ name }) => {
-    console.log({ name });
+    console.log(JSON.stringify({ name }));
   },
 });
 
@@ -34,7 +34,7 @@ const sub2 = command({
     }),
   },
   handler({ name, age }) {
-    console.log({ name, age });
+    console.log(JSON.stringify({ name, age }));
   },
 });
 

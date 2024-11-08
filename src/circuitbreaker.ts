@@ -32,7 +32,11 @@ export function handleCircuitBreaker(
 
   if (breaker.value === "help") {
     const message = value.printHelp(context);
-    throw new Exit({ exitCode: 0, message, into: "stdout" });
+    throw new Exit({
+      exitCode: context.autoFallbackHelpTriggered ? 1 : 0,
+      message,
+      into: "stdout",
+    });
   }
   if (breaker.value === "version") {
     const message = value.version || "0.0.0";

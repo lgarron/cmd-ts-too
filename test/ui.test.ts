@@ -6,7 +6,7 @@ import { app } from "./util";
 test("help for subcommands", async () => {
   const result = await runApp1(["--help"]);
   expect(result.all).toMatchSnapshot();
-  expect(result.exitCode).toBe(1);
+  expect(result.exitCode).toBe(0);
 });
 
 test("invalid subcommand", async () => {
@@ -18,7 +18,7 @@ test("invalid subcommand", async () => {
 test("help for complex command", async () => {
   const result = await runApp1(["complex", "--help"]);
   expect(result.all).toMatchSnapshot();
-  expect(result.exitCode).toBe(1);
+  expect(result.exitCode).toBe(0);
 });
 
 test("too many arguments", async () => {
@@ -112,12 +112,15 @@ describe("allows positional arguments", () => {
   test("help shows them", async () => {
     const result = await runApp3(["sub2", "--help"]);
     expect(result.all).toMatchSnapshot();
-    expect(result.exitCode).toBe(1);
+    expect(result.exitCode).toBe(0);
   });
 
   test("no positionals => all default", async () => {
     const result = await runApp3(["sub2"]);
-    expect(result.all).toEqual("{ name: 'anonymous', age: undefined }");
+    expect(JSON.parse(result.all ?? "{}")).toEqual({
+      name: "anonymous",
+      age: undefined,
+    });
     expect(result.exitCode).toBe(0);
   });
 
@@ -130,12 +133,13 @@ describe("allows positional arguments", () => {
 
   test("can take all the arguments", async () => {
     // should fail because we get an age first and `hello` is not a number
+    // TODO: why should this fail?
     const result = await runApp3(["sub2", "10", "ben"]);
-    expect(result.all).toEqual("{ name: 'ben', age: 10 }");
+    expect(JSON.parse(result.all ?? "{}")).toEqual({ name: "ben", age: 10 });
     expect(result.exitCode).toBe(0);
   });
 });
 
-const runApp1 = app(fileURLToPath(import.meta.resolve("../example/app.ts")));
+const runApp1 = app(fileURLToPath(import.meta.resolve("../example/app1.ts")));
 const runApp2 = app(fileURLToPath(import.meta.resolve("../example/app2.ts")));
 const runApp3 = app(fileURLToPath(import.meta.resolve("../example/app3.ts")));

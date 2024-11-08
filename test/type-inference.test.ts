@@ -3,7 +3,7 @@ import path from "node:path";
 import { getTypes } from "infer-types";
 
 test("types are inferred correctly", () => {
-  const filepath = path.join(__dirname, "../example/app.ts");
+  const filepath = path.join(__dirname, "../example/app1.ts");
   const types = getTypes(filepath);
   expect(types).toEqual({
     "cat -> stream": "Stream",
