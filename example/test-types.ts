@@ -1,4 +1,4 @@
-import type { Stream } from "node:stream";
+import { Readable, type Stream } from "node:stream";
 import URL from "node:url";
 import { createReadStream, pathExists, stat } from "fs-extra";
 import { type Type, extendType, number } from "../src";
@@ -30,7 +30,7 @@ export const ReadStream: Type<string, Stream> = {
           `Got status ${response.statusText} ${response.status} reading URL`,
         );
       }
-      return response.body;
+      return response.body ? Readable.fromWeb(response.body) : response.body;
     }
 
     if (obj === "-") {
