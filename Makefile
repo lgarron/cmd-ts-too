@@ -19,6 +19,7 @@ update-Makefile:
 
 .PHONY: build
 build:
+	bun run ./script/build.ts
 	npx tsc --project ./tsconfig.build.json
 
 .PHONY: lint

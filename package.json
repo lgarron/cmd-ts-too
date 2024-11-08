@@ -8,8 +8,7 @@
   "main": "dist/lib/cmd-ts-too/index.js",
   "files": [
     "dist",
-    "batteries",
-    "src"
+    "batteries"
   ],
   "engines": {
     "node": ">=16.0.0",
@@ -24,6 +23,7 @@
     "chalk": "^5.3.0",
     "debug": "^4.3.7",
     "didyoumean": "^1.2.2",
+    "esbuild": "^0.24.0",
     "strip-ansi": "^7.1.0"
   },
   "devDependencies": {
