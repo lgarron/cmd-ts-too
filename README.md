@@ -1,4 +1,4 @@
-This is a fork of: [text](https://github.com/Schniz/cmd-ts)
+This is a fork of: <https://github.com/Schniz/cmd-ts>
 
 --------
 
