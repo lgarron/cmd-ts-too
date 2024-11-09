@@ -2,7 +2,7 @@
 # https://github.com/lgarron/Makefile-scripts
 
 # Note: the first command becomes the default `make` target.
-NPM_COMMANDS = test build-book prepublishOnly
+NPM_COMMANDS = build-book prepublishOnly
 
 .PHONY: $(NPM_COMMANDS)
 $(NPM_COMMANDS):
@@ -21,6 +21,14 @@ update-Makefile:
 build:
 	bun run ./script/build.ts
 	npx tsc --project ./tsconfig.build.json
+
+.PHONY: test
+test:
+	bun test
+
+.PHONY: test-update-snapshots
+test-update-snapshots:
+	bun test --update-snapshots
 
 .PHONY: lint
 lint:
