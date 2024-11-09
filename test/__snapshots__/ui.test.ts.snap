@@ -162,27 +162,6 @@ exports[`asynchronous type conversion works for success 1`] = `"200 OK"`;
 
 exports[`subcommands show their version 1`] = `"1.0.0"`;
 
-exports[`failures in defaultValue 1`] = `
-"[0m[31m[31m[1merror: [22m[39mfound [33m3[39m errors
-
-  [31m[1m1.[22m[39m [31mNo value provided for --user[39m
-  [31m[1m2.[22m[39m [31mNo value provided for --password[39m
-  [31m[1m3.[22m[39m [31mDefault value not found for '--repo': Can't infer repo from git[39m
-
-[31m[1mhint: [22m[39mfor more information, try '[33mbuild --help[39m'[0m"
-`;
-
-exports[`subcommands with process.argv.slice(2) 1`] = `
-"[1msubcmds[3m <subcommand>[23m[22m
-
-where [3m<subcommand>[23m can be one of:
-
-[2m- [22msub1
-[2m- [22msub2
-
-[2mFor more help, try running \`[33msubcmds <subcommand> --help[39m\`[22m"
-`;
-
 exports[`shows help for blank args instead of error by default 1`] = `
 "[1mbuild[22m
 
@@ -195,4 +174,29 @@ OPTIONS:
 FLAGS:
   --dev, -D  - a boolean
   --help, -h - show help"
+`;
+
+exports[`failures in defaultValue 1`] = `
+"[1mbuild[22m
+
+OPTIONS:
+  --user, -u <str>      - a string[2m [env: APP_USER][22m
+  --password, -p <str>  - a string[2m [env: APP_PASS][22m
+  --repo, -r <uri>      - repository uri
+  --pr-number, -b <str> - a string[2m [env: APP_BRANCH][22m[2m [optional][22m
+
+FLAGS:
+  --dev, -D  - a boolean
+  --help, -h - show help"
+`;
+
+exports[`subcommands with process.argv.slice(2) 1`] = `
+"[1msubcmds[3m <subcommand>[23m[22m
+
+where [3m<subcommand>[23m can be one of:
+
+[2m- [22msub1
+[2m- [22msub2
+
+[2mFor more help, try running \`[33msubcmds <subcommand> --help[39m\`[22m"
 `;

@@ -37,9 +37,9 @@ const Repo: Type<string, string> = {
 const app = command({
   name: "build",
   // biome-ignore lint/complexity/useLiteralKeys: nopez
-  noArgsFallback: (env["NO_ARGS_FALLBACK_FOR_TESTING"] ?? "help") as
-    | "help"
-    | "error",
+  noArgsErrorBehaviour: (env["NO_ARGS_FALLBACK_FOR_TESTING"] ?? "help") as
+    | "show-help"
+    | "show-error",
   args: {
     user: option({
       type: string,

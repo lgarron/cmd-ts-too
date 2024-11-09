@@ -33,7 +33,7 @@ type CommandConfig<
   description?: string;
   handler: Handler;
   aliases?: string[];
-  noArgsFallback?: "help" | "error";
+  noArgsErrorBehaviour?: "show-help" | "show-error";
 };
 
 type Output<Args extends ArgTypes> = {
@@ -182,7 +182,7 @@ export function command<
 
       if (
         Result.isErr(parsed) &&
-        config.noArgsFallback !== "error" &&
+        config.noArgsErrorBehaviour !== "show-error" &&
         !context.anyArgumentsProvided
       ) {
         breaker = Result.ok("help");
