@@ -7,13 +7,14 @@ import type {
 } from "./argparser";
 import { Exit } from "./effects";
 import { errorBox } from "./errorBox";
-import type { PrintHelp, Versioned } from "./helpdoc";
+import type { PrintCompletions, PrintHelp, Versioned } from "./helpdoc";
 import { type AstNode, parse as doParse } from "./newparser/parser";
 import { tokenize } from "./newparser/tokenizer";
 
 export type Handling<Values, Result> = { handler: (values: Values) => Result };
 
 export type Runner<HandlerArgs, HandlerResult> = PrintHelp &
+  PrintCompletions &
   Partial<Versioned> &
   Register &
   Handling<HandlerArgs, HandlerResult> &

@@ -9,8 +9,16 @@ import type {
   ParsingResult,
 } from "./argparser";
 import { createCircuitBreaker, handleCircuitBreaker } from "./circuitbreaker";
+import type { CompletionsInfo, SubcommandsEnum } from "./completions";
 import type { From } from "./from";
-import type { Aliased, Descriptive, Named, Versioned } from "./helpdoc";
+import type {
+  Aliased,
+  Completable,
+  Descriptive,
+  Named,
+  ShellForCompletions,
+  Versioned,
+} from "./helpdoc";
 import { positional } from "./positional";
 import type { Runner } from "./runner";
 
@@ -35,7 +43,10 @@ type RunnerOutput<
 export function subcommands<
   Commands extends Record<
     string,
-    ArgParser<any> & Runner<any, any> & Partial<Descriptive & Aliased>
+    ArgParser<any> &
+      Runner<any, any> &
+      Partial<Descriptive & Completable & Aliased> /* <TODO */ &
+      Completable /* </TODO> */
   >,
 >(config: {
   name: string;
@@ -44,10 +55,23 @@ export function subcommands<
   description?: string;
 }): ArgParser<Output<Commands>> &
   Named &
-  Partial<Descriptive & Versioned> &
+  Partial<Descriptive & Completable & Versioned> &
   Runner<Output<Commands>, RunnerOutput<Commands>> {
   const circuitbreaker = createCircuitBreaker(!!config.version);
-  const type: From<string, keyof Commands> = {
+
+  const completions: () => SubcommandsEnum = () => {
+    const subcommands: Record<string, CompletionsInfo> = {};
+    for (const [name, subcommand] of Object.entries(config.cmds)) {
+      const aliases = subcommand.aliases ?? [];
+      // TODO: avoid combinatorial explosion in serialized form?
+      for (const nameOrAlias of [name, ...aliases]) {
+        subcommands[nameOrAlias] = subcommand.completions();
+      }
+    }
+    return { _tag: "subcommands", subcommands };
+  };
+
+  const type: From<string, keyof Commands> & Completable = {
     async from(str) {
       const commands = Object.entries(config.cmds).map(([name, cmd]) => {
         return {
@@ -74,6 +98,7 @@ export function subcommands<
 
       throw new Error(errorMessage);
     },
+    completions,
   };
 
   const subcommand = positional({
@@ -146,6 +171,10 @@ export function subcommands<
       lines.push(chalk.dim(`For more help, try running \`${helpCommand}\``));
       return lines.join("\n");
     },
+    printCompletions(shell: ShellForCompletions) {
+      console.log(`subcommand completions for: ${shell}`);
+    },
+    completions,
     async parse(
       context: ParseContext,
     ): Promise<ParsingResult<Output<Commands>>> {

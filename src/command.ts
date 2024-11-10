@@ -12,8 +12,10 @@ import type {
   Aliased,
   Descriptive,
   Named,
+  PrintCompletions,
   PrintHelp,
   ProvidesHelp,
+  ShellForCompletions,
   Versioned,
 } from "./helpdoc";
 import type { AstNode } from "./newparser/parser";
@@ -53,10 +55,12 @@ export function command<
   config: CommandConfig<Arguments, Handler>,
 ): ArgParser<Output<Arguments>> &
   PrintHelp &
+  PrintCompletions &
   ProvidesHelp &
   Named &
   Runner<Output<Arguments>, ReturnType<Handler>> &
   Partial<Versioned & Descriptive & Aliased> {
+  console.log("INTIITAL CONFIGIG", config);
   const argEntries = entries(config.args);
   const circuitbreaker = createCircuitBreaker(!!config.version);
 
@@ -112,6 +116,11 @@ export function command<
       }
 
       return lines.join("\n");
+    },
+    printCompletions(shell: ShellForCompletions) {
+      console.log(config);
+      // biome-ignore lint/complexity/useLiteralKeys: whatevz
+      console.log(config.args["format"].helpTopics);
     },
     register(opts) {
       for (const [, arg] of argEntries) {

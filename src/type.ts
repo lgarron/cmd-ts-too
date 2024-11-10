@@ -1,11 +1,12 @@
 import type { Default } from "./default";
 import type { From, FromFn, InputOf, OutputOf } from "./from";
-import type { Descriptive, Displayed } from "./helpdoc";
+import type { Completable, Descriptive, Displayed } from "./helpdoc";
 
 export { identity, type OutputOf, type InputOf } from "./from";
 
 export type Type<From_, To> = From<From_, To> &
-  Partial<Descriptive & Displayed & Default<To>>;
+  Partial<Descriptive & Completable & Displayed & Default<To>> &
+  /* <TODO> */ Descriptive /* </TODO> */;
 
 /**
  * Get the type definitions or an empty object from a type or a decoding function

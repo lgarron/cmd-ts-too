@@ -1,8 +1,13 @@
 import type { ParseContext } from "./argparser";
+import type { CompletionsInfo } from "./completions";
 
 export type Descriptive = {
   /** A long description that will be shown on help */
   description: string;
+};
+
+export type Completable = {
+  completions: () => CompletionsInfo;
 };
 
 export type Versioned = {
@@ -51,6 +56,15 @@ export type PrintHelp = {
    * Print help for the current item and the current parsing context.
    */
   printHelp(context: ParseContext): string;
+};
+
+export type ShellForCompletions = "fish"; // TODO: more shells
+
+export type PrintCompletions = {
+  /**
+   * Print completions for the given shell
+   */
+  printCompletions(shell: ShellForCompletions): void;
 };
 
 export type Aliased = {

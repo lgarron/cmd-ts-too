@@ -14,6 +14,7 @@ export function binary<Command extends Runner<any, any> & Named>(
   return {
     ...cmd,
     run(context: ParseContext) {
+      console.log({ cmd, context });
       context.anyArgumentsProvided = context.nodes.length > 2;
       const name = cmd.name || context.nodes[1].raw;
       context.hotPath?.push(name);

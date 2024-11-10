@@ -3,7 +3,12 @@ import * as Result from "./Result";
 import type { ArgParser, ParseContext, ParsingResult } from "./argparser";
 import type { Default } from "./default";
 import type { OutputOf } from "./from";
-import type { Descriptive, Displayed, ProvidesHelp } from "./helpdoc";
+import type {
+  Completable,
+  Descriptive,
+  Displayed,
+  ProvidesHelp,
+} from "./helpdoc";
 import type { PositionalArgument } from "./newparser/parser";
 import type { HasType, Type } from "./type";
 import { string } from "./types";
@@ -115,13 +120,18 @@ type StringType = Type<string, string>;
  * @param config positional argument config
  */
 export function positional<Decoder extends Type<string, any>>(
-  config: HasType<Decoder> & Partial<Displayed & Descriptive>,
+  config: HasType<Decoder> &
+    Partial<Displayed & Descriptive> /* <TODO */ &
+    Completable /* </TODO> */,
 ): PositionalParser<Decoder>;
 export function positional(
-  config?: Partial<HasType<never> & Displayed & Descriptive>,
+  config?: Partial<HasType<never> & Displayed & Descriptive> /* <TODO */ &
+    Completable /* </TODO> */,
 ): PositionalParser<StringType>;
 export function positional(
-  config?: Partial<HasType<any>> & Partial<Displayed & Descriptive>,
+  config?: Partial<HasType<any>> &
+    Partial<Displayed & Descriptive> /* <TODO */ &
+    Completable /* </TODO> */,
 ): PositionalParser<any> {
   return fullPositional({
     type: string,
