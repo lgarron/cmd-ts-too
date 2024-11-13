@@ -38,6 +38,11 @@ export const boolean: Type<string, boolean> = {
   },
   displayName: "true/false",
   defaultValue: () => false,
+  completions: () => ({
+    // TODO?
+    _tag: "alternatives",
+    alternatives: ["true", "false"],
+  }),
 };
 
 export function fullFlag<Decoder extends Type<boolean, any>>(

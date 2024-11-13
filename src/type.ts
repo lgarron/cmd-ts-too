@@ -6,7 +6,7 @@ export { identity, type OutputOf, type InputOf } from "./from";
 
 export type Type<From_, To> = From<From_, To> &
   Partial<Descriptive & Completable & Displayed & Default<To>> &
-  /* <TODO> */ Descriptive /* </TODO> */;
+  /* <TODO> */ Completable /* </TODO> */;
 
 /**
  * Get the type definitions or an empty object from a type or a decoding function

@@ -1,5 +1,6 @@
 import { URL } from "node:url";
 import { extendType, string } from "..";
+import { completionsAnyString } from "../completions";
 
 /**
  * Decodes a string into the `URL` type
@@ -19,6 +20,7 @@ export const Url = extendType(string, {
 
     return url;
   },
+  completions: completionsAnyString,
 });
 
 /**
@@ -32,4 +34,7 @@ export const HttpUrl = extendType(Url, {
 
     return url;
   },
+  completions: () => ({
+    _tag: "any-string",
+  }),
 });

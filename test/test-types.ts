@@ -1,3 +1,4 @@
+import { completionsAnyString } from "../src/completions";
 import { identity } from "../src/from";
 import type { InputOf, OutputOf } from "../src/from";
 import type { Type } from "../src/type";
@@ -13,6 +14,7 @@ export const number: Type<string, number> = {
   },
   displayName: "number",
   description: "a number",
+  completions: completionsAnyString,
 };
 
 export function single<T extends Type<any, any>>(
@@ -41,6 +43,7 @@ export const string: Type<string, string> = {
   ...identity(),
   description: "a string",
   displayName: "str",
+  completions: completionsAnyString,
 };
 
 export const boolean: Type<boolean, boolean> = {
@@ -50,6 +53,10 @@ export const boolean: Type<boolean, boolean> = {
   defaultValue() {
     return false;
   },
+  completions: () => ({
+    _tag: "alternatives",
+    alternatives: ["true", "false"],
+  }),
 };
 
 export function optional<T extends Type<any, any>>(

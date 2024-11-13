@@ -7,13 +7,22 @@ import type {
 } from "./argparser";
 import { boolean } from "./flag";
 import type { From, OutputOf } from "./from";
-import type { Descriptive, LongDoc, ProvidesHelp, ShortDoc } from "./helpdoc";
+import type {
+  Completable,
+  Descriptive,
+  LongDoc,
+  ProvidesHelp,
+  ShortDoc,
+} from "./helpdoc";
 import { findOption } from "./newparser/findOption";
 import type { HasType } from "./type";
 
-type MultiFlagConfig<Decoder extends From<boolean[], any>> = HasType<Decoder> &
+type MultiFlagConfig<Decoder extends From<boolean[], any>> = HasType<
+  Decoder /* <TODO */ & Completable /* </TODO> */
+> &
   LongDoc &
-  Partial<Descriptive & ShortDoc>;
+  Partial<Descriptive & Completable & ShortDoc> /* <TODO */ &
+  Completable /* </TODO> */;
 
 /**
  * Like `option`, but can accept multiple options, and expects a decoder from a list of strings.

@@ -22,7 +22,8 @@ type PositionalParser<Decoder extends Type<string, any>> = ArgParser<
   OutputOf<Decoder>
 > &
   ProvidesHelp &
-  Partial<Descriptive>;
+  Partial<Descriptive> /* <TODO */ &
+  Completable /* </TODO> */;
 
 function fullPositional<Decoder extends Type<string, any>>(
   config: PositionalConfig<Decoder>,
@@ -106,6 +107,10 @@ function fullPositional<Decoder extends Type<string, any>>(
 
       return Result.ok(decoded.value);
     },
+    completions: () => ({
+      // TODO: file path?
+      _tag: "any-string",
+    }),
   };
 }
 
@@ -120,19 +125,21 @@ type StringType = Type<string, string>;
  * @param config positional argument config
  */
 export function positional<Decoder extends Type<string, any>>(
-  config: HasType<Decoder> &
-    Partial<Displayed & Descriptive> /* <TODO */ &
-    Completable /* </TODO> */,
-): PositionalParser<Decoder>;
+  config: HasType<Decoder> & Partial<Displayed & Descriptive>,
+): PositionalParser<
+  Decoder /* <TODO */ & Completable /* </TODO> */
+> /* <TODO */ &
+  Completable /* </TODO> */;
 export function positional(
-  config?: Partial<HasType<never> & Displayed & Descriptive> /* <TODO */ &
-    Completable /* </TODO> */,
-): PositionalParser<StringType>;
+  config?: Partial<HasType<never> & Displayed & Descriptive>,
+): PositionalParser<
+  StringType /* <TODO */ & Completable /* </TODO> */
+> /* <TODO */ &
+  Completable /* </TODO> */;
 export function positional(
-  config?: Partial<HasType<any>> &
-    Partial<Displayed & Descriptive> /* <TODO */ &
-    Completable /* </TODO> */,
-): PositionalParser<any> {
+  config?: Partial<HasType<any>> & Partial<Displayed & Descriptive> /* <TODO */,
+): PositionalParser<any /* <TODO */ & Completable /* </TODO> */> /* <TODO */ &
+  Completable /* </TODO> */ {
   return fullPositional({
     type: string,
     ...config,

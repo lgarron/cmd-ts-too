@@ -10,6 +10,7 @@ import type {
 import { createCircuitBreaker, handleCircuitBreaker } from "./circuitbreaker";
 import type {
   Aliased,
+  Completable,
   Descriptive,
   Named,
   PrintCompletions,
@@ -22,7 +23,12 @@ import type { AstNode } from "./newparser/parser";
 import type { Runner } from "./runner";
 import { entries, flatMap, groupBy, padNoAnsi } from "./utils";
 
-type ArgTypes = Record<string, ArgParser<any> & Partial<ProvidesHelp>>;
+type ArgTypes = Record<
+  string,
+  ArgParser<any> &
+    /* <TODO> */ Completable /* </TODO> */ &
+    Partial<ProvidesHelp>
+>;
 type HandlerFunc<Args extends ArgTypes> = (args: Output<Args>) => any;
 
 type CommandConfig<
@@ -59,7 +65,8 @@ export function command<
   ProvidesHelp &
   Named &
   Runner<Output<Arguments>, ReturnType<Handler>> &
-  Partial<Versioned & Descriptive & Aliased> {
+  Partial<Versioned & Descriptive & Completable & Aliased> &
+  /* <TODO> */ Completable /* </TODO> */ {
   console.log("INTIITAL CONFIGIG", config);
   const argEntries = entries(config.args);
   const circuitbreaker = createCircuitBreaker(!!config.version);
@@ -117,10 +124,15 @@ export function command<
 
       return lines.join("\n");
     },
+    completions: () => ({
+      _tag: "command",
+      name: command.name,
+    }),
     printCompletions(shell: ShellForCompletions) {
-      console.log(config);
-      // biome-ignore lint/complexity/useLiteralKeys: whatevz
-      console.log(config.args["format"].helpTopics);
+      console.log(`shell: ${shell}`);
+      for (const arg of Object.values(config.args)) {
+        console.log(arg.completions);
+      }
     },
     register(opts) {
       for (const [, arg] of argEntries) {

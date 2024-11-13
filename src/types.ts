@@ -1,3 +1,4 @@
+import { completionsAnyString } from "./completions";
 import { type InputOf, type OutputOf, type Type, identity } from "./type";
 
 /**
@@ -16,6 +17,7 @@ export const number: Type<string, number> = {
   },
   displayName: "number",
   description: "a number",
+  completions: completionsAnyString,
 };
 
 /**
@@ -25,6 +27,7 @@ export const string: Type<string, string> = {
   ...identity(),
   description: "a string",
   displayName: "str",
+  completions: completionsAnyString,
 };
 
 /**
@@ -37,6 +40,10 @@ export const boolean: Type<boolean, boolean> = {
   defaultValue() {
     return false;
   },
+  completions: () => ({
+    _tag: "alternatives",
+    alternatives: ["true", "false"],
+  }),
 };
 
 /**
@@ -50,6 +57,7 @@ export function optional<T extends Type<any, any>>(
     defaultValue(): OutputOf<T> | undefined {
       return undefined;
     },
+    completions: () => ({ _tag: "optional" }),
   };
 }
 

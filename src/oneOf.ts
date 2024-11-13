@@ -1,5 +1,4 @@
 import { inspect } from "node:util";
-import { CompletionsAlternatives } from "./completions";
 import type { Type } from "./type";
 
 /**
@@ -20,7 +19,7 @@ export function oneOf<T extends string>(
     description: `One of ${examples}`,
     completions: () => ({
       _tag: "alternatives",
-      values: literals.map((t) => t.toString()),
+      alternatives: literals.map((t) => t.toString()),
     }),
   };
 }

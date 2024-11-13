@@ -2,6 +2,7 @@ import { Readable, type Stream } from "node:stream";
 import URL from "node:url";
 import { createReadStream, pathExists, stat } from "fs-extra";
 import { type Type, extendType, number } from "../src";
+import { completionsAnyString } from "../src/completions";
 
 export const Integer: Type<string, number> = extendType(number, {
   async from(n) {
@@ -10,6 +11,7 @@ export const Integer: Type<string, number> = extendType(number, {
     }
     return n;
   },
+  completions: completionsAnyString,
 });
 
 function stdin() {
@@ -48,6 +50,7 @@ export const ReadStream: Type<string, Stream> = {
 
     return createReadStream(obj);
   },
+  completions: completionsAnyString,
 };
 
 export function readStreamToString(s: Stream): Promise<string> {
@@ -65,4 +68,5 @@ export const CommaSeparatedString: Type<string, string[]> = {
   async from(s) {
     return s.split(/, ?/);
   },
+  completions: completionsAnyString,
 };

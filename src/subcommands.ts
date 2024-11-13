@@ -9,7 +9,7 @@ import type {
   ParsingResult,
 } from "./argparser";
 import { createCircuitBreaker, handleCircuitBreaker } from "./circuitbreaker";
-import type { CompletionsInfo, SubcommandsEnum } from "./completions";
+import type { CompletionsInfo, CompletionsSubcommands } from "./completions";
 import type { From } from "./from";
 import type {
   Aliased,
@@ -55,11 +55,13 @@ export function subcommands<
   description?: string;
 }): ArgParser<Output<Commands>> &
   Named &
-  Partial<Descriptive & Completable & Versioned> &
+  Partial<Descriptive & Completable & Versioned> /* <TODO */ &
+  Completable /* </TODO> */ &
   Runner<Output<Commands>, RunnerOutput<Commands>> {
   const circuitbreaker = createCircuitBreaker(!!config.version);
 
-  const completions: () => SubcommandsEnum = () => {
+  // TODO: why is this used 3 times?
+  const completions: () => CompletionsSubcommands = () => {
     const subcommands: Record<string, CompletionsInfo> = {};
     for (const [name, subcommand] of Object.entries(config.cmds)) {
       const aliases = subcommand.aliases ?? [];

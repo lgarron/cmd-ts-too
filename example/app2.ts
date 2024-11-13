@@ -23,6 +23,9 @@ const PrNumber = extendType(string, {
     return prNumber;
   },
   defaultValue: () => "Hello",
+  completions: () => ({
+    _tag: "any-string",
+  }),
 });
 
 const Repo: Type<string, string> = {

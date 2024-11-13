@@ -22,7 +22,7 @@ const subcmd1 = subcommands({
 });
 
 const nestingSubcommands = subcommands({
-  name: "commandy",
+  name: "nesting subcommands",
   cmds: { subcmd1 },
 });
 

@@ -16,6 +16,7 @@ import {
   subcommands,
   union,
 } from "../src";
+import { completionsAnyString } from "../src/completions";
 import { Integer, ReadStream } from "./test-types";
 
 const complex = command({
@@ -143,6 +144,7 @@ const Name = extendType(string, {
     return s;
   },
   displayName: "name",
+  completions: completionsAnyString,
 });
 
 const withSubcommands = subcommands({

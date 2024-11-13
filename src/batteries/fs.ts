@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { extendType, string } from "..";
+import { completionsAnyString, completionsFilePath } from "../completions";
 
 /**
  * Resolves an existing path. Produces an error when path does not exist.
@@ -18,6 +19,7 @@ export const ExistingPath = extendType(string, {
 
     return resolved;
   },
+  completions: completionsAnyString,
 });
 
 /**
@@ -36,6 +38,7 @@ export const Directory = extendType(ExistingPath, {
   },
   displayName: "dir",
   description: "A path to a directory or a file within a directory",
+  completions: completionsFilePath,
 });
 
 /**
@@ -53,4 +56,5 @@ export const File = extendType(ExistingPath, {
   },
   displayName: "file",
   description: "A file in the file system",
+  completions: completionsFilePath,
 });
