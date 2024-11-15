@@ -9,10 +9,13 @@ import type {
 import type { Default } from "./default";
 import type { OutputOf } from "./from";
 import type {
+  Completable,
   Descriptive,
   EnvDoc,
   LongDoc,
+  PrintCompletions,
   ProvidesHelp,
+  ShellForCompletions,
   ShortDoc,
 } from "./helpdoc";
 import { findOption } from "./newparser/findOption";
@@ -22,12 +25,15 @@ import type { AllOrNothing } from "./utils";
 
 type OptionConfig<Decoder extends Type<string, any>> = LongDoc &
   HasType<Decoder> &
-  Partial<Descriptive & EnvDoc & ShortDoc> &
+  Partial<Descriptive & Completable & EnvDoc & ShortDoc> &
   AllOrNothing<Default<OutputOf<Decoder>>>;
 
 function fullOption<Decoder extends Type<string, any>>(
   config: OptionConfig<Decoder>,
-): ArgParser<OutputOf<Decoder>> & ProvidesHelp & Partial<Descriptive> {
+): ArgParser<OutputOf<Decoder>> &
+  ProvidesHelp &
+  Partial<Descriptive> &
+  /* <TODO> */ PrintCompletions /* </TODO> */ {
   return {
     description: config.description ?? config.type.description,
     helpTopics() {
@@ -73,6 +79,14 @@ function fullOption<Decoder extends Type<string, any>>(
             config.description ?? config.type.description ?? "self explanatory",
         },
       ];
+    },
+    printCompletions(shell: ShellForCompletions) {
+      console.log(`shell: ${shell}`);
+      // console.log(config);
+      // for (const [name, arg] of Object.values(config)) {
+      //   console.log(arg.name);
+      //   console.log(arg.printCompletions());
+      // }
     },
     register(opts) {
       opts.forceOptionLongNames.add(config.long);

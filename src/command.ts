@@ -130,8 +130,9 @@ export function command<
     }),
     printCompletions(shell: ShellForCompletions) {
       console.log(`shell: ${shell}`);
+      console.log(config.args);
       for (const arg of Object.values(config.args)) {
-        console.log(arg.completions);
+        console.log(arg.printCompletions());
       }
     },
     register(opts) {
