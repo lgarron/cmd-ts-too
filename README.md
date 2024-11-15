@@ -77,7 +77,7 @@ That works okay. But we can do better. In which ways?
 - Error handling is out of the command line argument parser context, and in userland, making things less consistent and pretty.
 - It shows we lack composability and encapsulation — and we miss a way to distribute shared "command line" behavior.
 
-What if we had a way to get a `Stream` out of the parser, instead of a plain string? This is where `cmd-ts` gets its power from, custom type decoding:
+What if we had a way to get a `Stream` out of the parser, instead of a plain string? This is where `cmd-ts-too` gets its power from, custom type decoding:
 
 ```ts
 // ReadStream.ts
