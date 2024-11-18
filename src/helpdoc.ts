@@ -64,7 +64,7 @@ export type PrintCompletions = {
   /**
    * Print completions for the given shell
    */
-  printCompletions(shell: ShellForCompletions): void;
+  printCompletions(shell: ShellForCompletions): CompletionsInfo;
 };
 
 export type Aliased = {

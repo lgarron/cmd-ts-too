@@ -131,9 +131,11 @@ export function command<
     printCompletions(shell: ShellForCompletions) {
       console.log(`shell: ${shell}`);
       console.log(config.args);
-      for (const arg of Object.values(config.args)) {
-        console.log(arg.printCompletions());
+      const output = {};
+      for (const [name, arg] of Object.entries(config.args)) {
+        output[name] = arg.completions();
       }
+      return output;
     },
     register(opts) {
       for (const [, arg] of argEntries) {

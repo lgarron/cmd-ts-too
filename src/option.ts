@@ -13,9 +13,7 @@ import type {
   Descriptive,
   EnvDoc,
   LongDoc,
-  PrintCompletions,
   ProvidesHelp,
-  ShellForCompletions,
   ShortDoc,
 } from "./helpdoc";
 import { findOption } from "./newparser/findOption";
@@ -33,7 +31,7 @@ function fullOption<Decoder extends Type<string, any>>(
 ): ArgParser<OutputOf<Decoder>> &
   ProvidesHelp &
   Partial<Descriptive> &
-  /* <TODO> */ PrintCompletions /* </TODO> */ {
+  /* <TODO> */ Completable /* </TODO> */ {
   return {
     description: config.description ?? config.type.description,
     helpTopics() {
@@ -80,13 +78,8 @@ function fullOption<Decoder extends Type<string, any>>(
         },
       ];
     },
-    printCompletions(shell: ShellForCompletions) {
-      console.log(`shell: ${shell}`);
-      // console.log(config);
-      // for (const [name, arg] of Object.values(config)) {
-      //   console.log(arg.name);
-      //   console.log(arg.printCompletions());
-      // }
+    completions() {
+      return config.type.completions();
     },
     register(opts) {
       opts.forceOptionLongNames.add(config.long);
@@ -186,17 +179,26 @@ export function option<Decoder extends Type<string, any>>(
     HasType<Decoder> &
     Partial<Descriptive & EnvDoc & ShortDoc> &
     AllOrNothing<Default<OutputOf<Decoder>>>,
-): ArgParser<OutputOf<Decoder>> & ProvidesHelp & Partial<Descriptive>;
+): ArgParser<OutputOf<Decoder>> &
+  ProvidesHelp &
+  Partial<Descriptive> &
+  /* <TODO> */ Completable /* </TODO> */;
 export function option(
   config: LongDoc &
     Partial<HasType<never> & Descriptive & EnvDoc & ShortDoc> &
     AllOrNothing<Default<OutputOf<StringType>>>,
-): ArgParser<OutputOf<StringType>> & ProvidesHelp & Partial<Descriptive>;
+): ArgParser<OutputOf<StringType>> &
+  ProvidesHelp &
+  Partial<Descriptive> &
+  /* <TODO> */ Completable /* </TODO> */;
 export function option(
   config: LongDoc &
     Partial<HasType<any>> &
     Partial<Descriptive & EnvDoc & ShortDoc>,
-): ArgParser<OutputOf<any>> & ProvidesHelp & Partial<Descriptive> {
+): ArgParser<OutputOf<any>> &
+  ProvidesHelp &
+  Partial<Descriptive> &
+  /* <TODO> */ Completable /* </TODO> */ {
   return fullOption({
     type: string,
     ...config,

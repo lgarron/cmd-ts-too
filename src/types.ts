@@ -57,7 +57,7 @@ export function optional<T extends Type<any, any>>(
     defaultValue(): OutputOf<T> | undefined {
       return undefined;
     },
-    completions: () => ({ _tag: "optional" }),
+    completions: () => ({ _tag: "optional", completions: t.completions() }),
   };
 }
 
