@@ -12,6 +12,6 @@ build({
   splitting: true,
   sourcemap: true,
   target: "es2022",
-  external: ["node:*"],
+  external: ["node:*", "./node_modules/*"],
   chunkNames: "chunks/[name]-[hash]",
 });
