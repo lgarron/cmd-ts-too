@@ -50,3 +50,7 @@ clean:
 .PHONY: setup
 setup:
 	npm install
+
+.PHONY: reset
+reset: clean
+	rm -rf ./node_modules
