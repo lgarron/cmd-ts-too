@@ -78,13 +78,13 @@ test("help for composed subcommand", async () => {
   expect(result.exitCode).toBe(0);
 });
 
-test("asynchronous type conversion works for failures", async () => {
+test.skip("asynchronous type conversion works for failures", async () => {
   const result = await runApp1(["composed", "cat", "https://httpstat.us/404"]);
   expect(result.all).toMatchSnapshot();
   expect(result.exitCode).toBe(1);
 });
 
-test("asynchronous type conversion works for success", async () => {
+test.skip("asynchronous type conversion works for success", async () => {
   const result = await runApp1(["composed", "cat", "https://httpstat.us/200"]);
   expect(result.all).toMatchSnapshot();
   expect(result.exitCode).toBe(0);
