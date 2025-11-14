@@ -1,5 +1,5 @@
-import { identity } from "../src/from";
 import type { InputOf, OutputOf } from "../src/from";
+import { identity } from "../src/from";
 import type { Type } from "../src/type";
 
 export const number: Type<string, number> = {

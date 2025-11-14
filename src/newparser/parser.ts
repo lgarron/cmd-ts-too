@@ -78,7 +78,9 @@ export function parse(tokens: Token[], forceFlag: RegisterOptions): AstNode[] {
 
   while (index < tokens.length) {
     const currentToken = getToken();
-    if (!currentToken) break;
+    if (!currentToken) {
+      break;
+    }
 
     if (currentToken.type === "argumentDivider") {
       continue;
@@ -236,8 +238,6 @@ export function parse(tokens: Token[], forceFlag: RegisterOptions): AstNode[] {
     }
 
     index++;
-    // biome-ignore lint/correctness/noUnnecessaryContinue: TODO
-    continue;
   }
 
   if (debug.enabled) {

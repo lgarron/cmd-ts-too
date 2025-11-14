@@ -1,5 +1,4 @@
 import chalk from "chalk";
-import * as Result from "./Result";
 import type {
   ArgParser,
   ParseContext,
@@ -15,7 +14,8 @@ import type {
   ShortDoc,
 } from "./helpdoc";
 import { findOption } from "./newparser/findOption";
-import { type HasType, type OutputOf, type Type, extendType } from "./type";
+import * as Result from "./Result";
+import { extendType, type HasType, type OutputOf, type Type } from "./type";
 import { boolean as booleanIdentity } from "./types";
 import type { AllOrNothing } from "./utils";
 
@@ -30,8 +30,12 @@ type FlagConfig<Decoder extends Type<boolean, any>> = LongDoc &
  */
 export const boolean: Type<string, boolean> = {
   async from(str) {
-    if (str === "true") return true;
-    if (str === "false") return false;
+    if (str === "true") {
+      return true;
+    }
+    if (str === "false") {
+      return false;
+    }
     throw new Error(
       `expected value to be either "true" or "false". got: "${str}"`,
     );
@@ -75,7 +79,7 @@ export function fullFlag<Decoder extends Type<boolean, any>>(
           const defaultValue = defaultValueFn();
           defaults.push(`default: ${chalk.italic(defaultValue)}`);
         }
-      } catch (e) {}
+      } catch (_e) {}
 
       return [
         {

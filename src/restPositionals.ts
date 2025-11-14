@@ -1,4 +1,3 @@
-import * as Result from "./Result";
 import type {
   ArgParser,
   ParseContext,
@@ -8,6 +7,7 @@ import type {
 import type { OutputOf } from "./from";
 import type { Descriptive, Displayed, ProvidesHelp } from "./helpdoc";
 import type { PositionalArgument } from "./newparser/parser";
+import * as Result from "./Result";
 import type { HasType, Type } from "./type";
 import { string } from "./types";
 

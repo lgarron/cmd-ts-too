@@ -57,12 +57,10 @@ namespace TypeTests {
     // biome-ignore lint/complexity/noBannedTypes: nopez
     type accepts_nothing = AssertTrue<Extends<AllOrNothing<Person>, {}>>;
 
-    // biome-ignore lint/suspicious/noExportsInTest: nopez
     export type test = AssertTrue<
       AllTrue<[accepts_all_elements, does_not_accept_partial, accepts_nothing]>
     >;
   }
 
-  // biome-ignore lint/suspicious/noExportsInTest: nopez
   export type test = AllTrue<[AllOrNothingTests.test]>;
 }

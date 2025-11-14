@@ -1,6 +1,5 @@
 import chalk from "chalk";
 import didYouMean from "didyoumean";
-import * as Result from "./Result";
 // import { Runner, Into } from './runner';
 import type {
   ArgParser,
@@ -12,6 +11,7 @@ import { createCircuitBreaker, handleCircuitBreaker } from "./circuitbreaker";
 import type { From } from "./from";
 import type { Aliased, Descriptive, Named, Versioned } from "./helpdoc";
 import { positional } from "./positional";
+import * as Result from "./Result";
 import type { Runner } from "./runner";
 
 type Output<

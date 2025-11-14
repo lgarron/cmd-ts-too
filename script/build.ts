@@ -1,6 +1,6 @@
 import { build } from "esbuild";
 
-build({
+await build({
   entryPoints: [
     "./src/index.ts",
     "./src/batteries/fs.ts",

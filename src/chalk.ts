@@ -96,8 +96,12 @@ const tagged = generateColoredBody({}, [], (levels, str) => {
 const disabled = generateColoredBody({}, [], (_levels, str) => str);
 
 export function colored(): Colored {
-  if (mode === "chalk") return chalked;
-  if (mode === "disabled") return disabled;
+  if (mode === "chalk") {
+    return chalked;
+  }
+  if (mode === "disabled") {
+    return disabled;
+  }
   return tagged;
 }
 

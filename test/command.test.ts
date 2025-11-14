@@ -1,10 +1,10 @@
 import { expect, test } from "bun:test";
-import * as Result from "../src/Result";
 import { command } from "../src/command";
 import { flag } from "../src/flag";
 import { parse } from "../src/newparser/parser";
 import { tokenize } from "../src/newparser/tokenizer";
 import { option } from "../src/option";
+import * as Result from "../src/Result";
 import { restPositionals } from "../src/restPositionals";
 import { createRegisterOptions } from "./createRegisterOptions";
 import { boolean, number, string } from "./test-types";

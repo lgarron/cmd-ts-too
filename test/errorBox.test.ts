@@ -1,9 +1,9 @@
 import { expect, test } from "bun:test";
-import * as Result from "../src/Result";
 import { errorBox } from "../src/errorBox";
 import { parse } from "../src/newparser/parser";
 import { tokenize } from "../src/newparser/tokenizer";
 import { option } from "../src/option";
+import * as Result from "../src/Result";
 import { createRegisterOptions } from "./createRegisterOptions";
 import { number } from "./test-types";
 

@@ -1,5 +1,4 @@
 import chalk from "chalk";
-import * as Result from "./Result";
 import type {
   ArgParser,
   ParseContext,
@@ -17,6 +16,7 @@ import type {
   Versioned,
 } from "./helpdoc";
 import type { AstNode } from "./newparser/parser";
+import * as Result from "./Result";
 import type { Runner } from "./runner";
 import { entries, flatMap, groupBy, padNoAnsi } from "./utils";
 

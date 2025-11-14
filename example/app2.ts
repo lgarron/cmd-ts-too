@@ -2,7 +2,6 @@
 
 import { env } from "node:process";
 import {
-  type Type,
   boolean,
   command,
   extendType,
@@ -10,6 +9,7 @@ import {
   option,
   run,
   string,
+  type Type,
 } from "../src";
 
 const PrNumber = extendType(string, {

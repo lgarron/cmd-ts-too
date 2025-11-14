@@ -1,4 +1,4 @@
-import { type InputOf, type OutputOf, type Type, identity } from "./type";
+import { type InputOf, identity, type OutputOf, type Type } from "./type";
 
 /**
  * A number type to be used with `option`

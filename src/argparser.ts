@@ -1,5 +1,5 @@
-import type { Result } from "./Result";
 import type { AstNode } from "./newparser/parser";
+import type { Result } from "./Result";
 
 export type Nodes = AstNode[];
 

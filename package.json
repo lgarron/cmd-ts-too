@@ -15,8 +15,8 @@
     "bun": ">=1.0.30"
   },
   "scripts": {
-    "build-book": "npx cargo-mdbook build --dest-dir=dist/web",
-    "prepublishOnly": "rm -rf dist && make build && make test"
+    "build-book": "make build-book",
+    "prepublishOnly": "make prepublishOnly"
   },
   "dependencies": {
     "chalk": "^5.6.2",

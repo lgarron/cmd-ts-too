@@ -1,5 +1,4 @@
 import chalk from "chalk";
-import * as Result from "./Result";
 import type {
   ArgParser,
   ParseContext,
@@ -12,6 +11,7 @@ import type { OutputOf } from "./from";
 import type { Descriptive, LongDoc, ProvidesHelp, ShortDoc } from "./helpdoc";
 import { findOption } from "./newparser/findOption";
 import type { AstNode } from "./newparser/parser";
+import * as Result from "./Result";
 import type { HasType, Type } from "./type";
 
 type MultiOptionConfig<Decoder extends Type<string[], any>> = HasType<Decoder> &
@@ -48,7 +48,7 @@ export function multioption<Decoder extends Type<string[], any>>(
           } else {
             defaults.push("[...optional]");
           }
-        } catch (e) {}
+        } catch (_e) {}
       }
 
       return [

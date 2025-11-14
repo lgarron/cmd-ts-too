@@ -1,4 +1,3 @@
-import * as Result from "./Result";
 import type {
   ArgParser,
   ParseContext,
@@ -9,6 +8,7 @@ import { boolean } from "./flag";
 import type { From, OutputOf } from "./from";
 import type { Descriptive, LongDoc, ProvidesHelp, ShortDoc } from "./helpdoc";
 import { findOption } from "./newparser/findOption";
+import * as Result from "./Result";
 import type { HasType } from "./type";
 
 type MultiFlagConfig<Decoder extends From<boolean[], any>> = HasType<Decoder> &

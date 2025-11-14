@@ -2,7 +2,7 @@ import type { Default } from "./default";
 import type { From, FromFn, InputOf, OutputOf } from "./from";
 import type { Descriptive, Displayed } from "./helpdoc";
 
-export { identity, type OutputOf, type InputOf } from "./from";
+export { type InputOf, identity, type OutputOf } from "./from";
 
 export type Type<From_, To> = From<From_, To> &
   Partial<Descriptive & Displayed & Default<To>>;

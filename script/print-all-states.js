@@ -1,9 +1,9 @@
 #!/usr/bin/env -S node --
 
-import { default as chalk } from "chalk";
-
 // We can't use `import(…)` for the `.snap` file.
 import { createRequire } from "node:module";
+import { default as chalk } from "chalk";
+
 const allSnapshots = await createRequire(import.meta.url)(
   "../test/__snapshots__/ui.test.ts.snap",
 );

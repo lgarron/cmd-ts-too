@@ -1,8 +1,8 @@
-import * as Result from "./Result";
 import type { ArgParser, ParseContext, Register } from "./argparser";
 import { Exit } from "./effects";
 import { flag } from "./flag";
 import type { PrintHelp, ProvidesHelp, Versioned } from "./helpdoc";
+import * as Result from "./Result";
 import { boolean } from "./types";
 
 type CircuitBreaker = "help" | "version";

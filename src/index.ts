@@ -4,18 +4,18 @@
  * @packageDocumentation
  */
 
-export { subcommands } from "./subcommands";
-export { type Type, extendType } from "./type";
-export * from "./types";
 export { binary } from "./binary";
 export { command } from "./command";
 export { flag } from "./flag";
-export { option } from "./option";
-export { positional } from "./positional";
-export { dryRun, runSafely, run, parse, type Runner } from "./runner";
-export { restPositionals } from "./restPositionals";
 export { multiflag } from "./multiflag";
 export { multioption } from "./multioption";
-export { union } from "./union";
 export { oneOf } from "./oneOf";
+export { option } from "./option";
+export { positional } from "./positional";
 export { rest } from "./rest";
+export { restPositionals } from "./restPositionals";
+export { dryRun, parse, type Runner, run, runSafely } from "./runner";
+export { subcommands } from "./subcommands";
+export { extendType, type Type } from "./type";
+export * from "./types";
+export { union } from "./union";

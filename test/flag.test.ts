@@ -1,8 +1,8 @@
 import { expect, test } from "bun:test";
-import * as Result from "../src/Result";
 import { flag } from "../src/flag";
 import { parse } from "../src/newparser/parser";
 import { tokenize } from "../src/newparser/tokenizer";
+import * as Result from "../src/Result";
 import { boolean } from "../src/types";
 import { createRegisterOptions } from "./createRegisterOptions";
 

@@ -1,4 +1,3 @@
-import { type Result, err, isErr, ok } from "./Result";
 import type {
   ArgParser,
   ParseContext,
@@ -10,6 +9,7 @@ import { errorBox } from "./errorBox";
 import type { PrintHelp, Versioned } from "./helpdoc";
 import { type AstNode, parse as doParse } from "./newparser/parser";
 import { tokenize } from "./newparser/tokenizer";
+import { err, isErr, ok, type Result } from "./Result";
 
 export type Handling<Values, Result> = { handler: (values: Values) => Result };
 

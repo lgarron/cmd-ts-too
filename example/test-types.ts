@@ -1,7 +1,7 @@
 import { Readable, type Stream } from "node:stream";
 import URL from "node:url";
 import { createReadStream, pathExists, stat } from "fs-extra";
-import { type Type, extendType, number } from "../src";
+import { extendType, number, type Type } from "../src";
 
 export const Integer: Type<string, number> = extendType(number, {
   async from(n) {
@@ -30,6 +30,7 @@ export const ReadStream: Type<string, Stream> = {
           `Got status ${response.statusText} ${response.status} reading URL`,
         );
       }
+      /** @ts-expect-error */
       return response.body ? Readable.fromWeb(response.body) : response.body;
     }
 

@@ -9,7 +9,9 @@ export function padNoAnsi(
   place: "end" | "start",
 ): string {
   const noAnsiStr = stripAnsi(str);
-  if (length < noAnsiStr.length) return str;
+  if (length < noAnsiStr.length) {
+    return str;
+  }
   const pad = Array(length - noAnsiStr.length + 1).join(" ");
   if (place === "end") {
     return str + pad;

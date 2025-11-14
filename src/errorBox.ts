@@ -18,14 +18,18 @@ function highlight(
   error: ParsingError,
 ): HighlightResult | undefined {
   const strings: string[] = [];
-  let errorIndex: undefined | number = undefined;
+  let errorIndex: undefined | number;
 
   function foundError() {
-    if (errorIndex !== undefined) return;
+    if (errorIndex !== undefined) {
+      return;
+    }
     errorIndex = stripAnsi(strings.join(" ")).length;
   }
 
-  if (error.nodes.length === 0) return;
+  if (error.nodes.length === 0) {
+    return;
+  }
 
   for (const node of nodes) {
     if (error.nodes.includes(node)) {
@@ -87,7 +91,6 @@ export function errorBox(
   );
   errorMessages.push("");
 
-  // biome-ignore lint/complexity/noForEach: TODO
   withHighlight
     .filter((x) => x.highlighted)
     .forEach((x) => {
@@ -117,7 +120,6 @@ export function errorBox(
     }
   }
 
-  // biome-ignore lint/complexity/noForEach: TODO
   withNoHighlight.forEach(({ message }) => {
     const num = chalk.red.bold(
       `${padNoAnsi(number.toString(), maxNumberWidth, "start")}.`,
