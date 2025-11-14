@@ -33,7 +33,7 @@ test-update-snapshots:
 .PHONY: lint
 lint:
 	npx @biomejs/biome check
-	npx tsc
+	bun x tsc --noEmit --project ./tsconfig.build.json
 
 .PHONY: format
 format:
